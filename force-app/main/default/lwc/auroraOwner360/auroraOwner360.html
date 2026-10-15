@@ -1,0 +1,22 @@
+<template>
+    <template lwc:if={o}>
+        <section class={cardClass} aria-label="차주 360">
+            <div class="grid">
+                <div class="avatar" aria-hidden="true">{initial}</div>
+                <div>
+                    <p class="name">{o.name}</p>
+                    <p class="muted">{contactLine}</p>
+                </div>
+                <div><p class="k">고객 위험 등급</p><p class={riskClass}>{riskText}</p></div>
+                <div><p class="k">최근 90일 VOC</p><p class="big">{o.voc90}건</p></div>
+                <div><p class="k">진행 중 VOC · 담당</p><p class="v">{o.openVoc}건</p><p class="muted">{o.handlers}</p></div>
+                <div><p class="k">보유 차량</p><p class="big">{o.vehicleCount}대</p></div>
+            </div>
+            <div class="badges row">
+                <template for:each={badges} for:item="b">
+                    <span key={b.key} class={b.cls}>{b.label}</span>
+                </template>
+            </div>
+        </section>
+    </template>
+</template>

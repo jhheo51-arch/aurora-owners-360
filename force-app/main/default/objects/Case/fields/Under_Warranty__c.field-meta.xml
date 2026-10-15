@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Under_Warranty__c</fullName>
+    <description>VOC 접수일 기준 보증 기간 내 여부. 보증 구분이 고전압 배터리면 배터리 보증, 아니면 일반 보증으로 판단. 차량·출고일·배터리 보증일이 없으면 false.</description>
+    <formula>IF(
+    ISPICKVAL(Warranty_Scope__c, &quot;고전압 배터리&quot;),
+    Vehicle__r.Battery_Warranty_End_Date__c &gt;= DATEVALUE(CreatedDate),
+    Vehicle__r.Warranty_End_Date__c &gt;= DATEVALUE(CreatedDate)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>보증 기간 내</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

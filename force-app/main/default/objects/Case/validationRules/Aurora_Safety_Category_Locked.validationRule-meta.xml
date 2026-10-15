@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Safety_Category_Locked</fullName>
+    <active>true</active>
+    <description>오로라 VOC 가드레일(v4, PRD Q60): 안전 결함은 팀장 이관 처리완료 전에 다른 유형으로 낮출 수 없음. 사람·AI(Agent) 동일 적용</description>
+    <errorConditionFormula>AND(ISCHANGED(VOC_Category__c), ISPICKVAL(PRIORVALUE(VOC_Category__c), &quot;안전 결함&quot;), NOT(ISPICKVAL(Escalation_Status__c, &quot;처리완료&quot;)))</errorConditionFormula>
+    <errorDisplayField>VOC_Category__c</errorDisplayField>
+    <errorMessage>안전 결함 VOC는 팀장 이관이 '처리완료'된 뒤에만 다른 유형으로 바꿀 수 있습니다.</errorMessage>
+</ValidationRule>

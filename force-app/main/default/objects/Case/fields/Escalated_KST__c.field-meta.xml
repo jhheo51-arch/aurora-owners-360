@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalated_KST__c</fullName>
+    <description>프롬프트·문서용 한국 시간 텍스트(YYYY-MM-DD HH:mm). 날짜 병합값이 UTC로 들어가는 문제 대응 (v4, PRD §19-5)</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(Escalated_At__c), &quot;&quot;, LEFT(TEXT(Escalated_At__c + 9/24), 16))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>이관 시각(KST)</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

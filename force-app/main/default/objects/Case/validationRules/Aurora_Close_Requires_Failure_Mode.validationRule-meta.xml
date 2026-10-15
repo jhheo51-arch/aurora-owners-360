@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Close_Requires_Failure_Mode</fullName>
+    <active>true</active>
+    <description>오로라 VOC를 새로 종결할 때 고장 유형(위키) 선택 또는 새 유형 제안 필수 (PRD Q40)</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(VOC_Status__c),
+    ISPICKVAL(VOC_Status__c, &quot;종결&quot;),
+    ISBLANK(Failure_Mode__c),
+    ISBLANK(Proposed_Failure_Mode__c)
+)</errorConditionFormula>
+    <errorDisplayField>Failure_Mode__c</errorDisplayField>
+    <errorMessage>종결하려면 고장 유형을 선택하거나 새 고장 유형을 제안하세요.</errorMessage>
+</ValidationRule>

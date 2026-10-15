@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>application/zip</contentType>
+    <description>three.js r147 (MIT) build/three.min.js + examples/js/controls/OrbitControls.js — aurora3dVehicle 전용, 외부 CDN 미사용</description>
+</StaticResource>

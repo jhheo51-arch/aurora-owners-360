@@ -1,0 +1,8 @@
+.rag { border: 1px solid #c9d7f0; background: #f4f7fd; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
+.rag-head { font-weight: 700; color: #0b3d91; margin-bottom: 6px; }
+.rag-note { font-weight: 400; font-size: 11px; color: #5c6370; margin-left: 6px; }
+.rag-text { white-space: pre-wrap; font-size: 13px; line-height: 1.55; }
+.rag-sub { font-size: 12px; font-weight: 700; color: #0b3d91; margin-top: 8px; }
+.rag-src { display: grid; gap: 3px; font-size: 12px; }
+.rag-label { display: inline-block; min-width: 42px; font-weight: 700; color: #0b3d91; background: #e3ebf8; border-radius: 4px; text-align: center; margin-right: 4px; }
+.rag-why { color: #5c6370; }

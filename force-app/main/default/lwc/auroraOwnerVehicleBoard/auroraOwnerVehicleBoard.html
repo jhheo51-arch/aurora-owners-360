@@ -1,0 +1,72 @@
+<template>
+    <div class="ob-wrap">
+        <div class="ob-tools">
+            <lightning-input type="search" label="차주·차량 검색" placeholder="이름, 전화, 번호판, 차량 번호(VEH-)" value={term}
+                onchange={onTerm} class="ob-search"></lightning-input>
+            <div class="ob-chips" role="group" aria-label="필터">
+                <template for:each={filters} for:item="f">
+                    <lightning-button key={f.key} data-key={f.key} label={f.label} variant={f.variant} aria-pressed={f.pressed}
+                        onclick={toggleFilter}></lightning-button>
+                </template>
+                <lightning-button variant="base" label="초기화" onclick={clearAll}></lightning-button>
+            </div>
+            <span class="ob-count">{countLabel}</span>
+        </div>
+
+        <template lwc:if={loading}><lightning-spinner size="small" alternative-text="불러오는 중"></lightning-spinner></template>
+        <template lwc:if={error}><p class="ob-error" role="alert">{error}</p></template>
+        <template lwc:if={isEmpty}><p class="ob-empty">조건에 맞는 차주가 없습니다.</p></template>
+
+        <ul class="ob-list">
+            <template for:each={rows} for:item="r">
+                <li key={r.id} class={r.rowCls}>
+                    <div class="ob-head">
+                        <lightning-button-icon icon-name={r.toggleIcon} alternative-text={r.toggleLabel} title={r.toggleLabel}
+                            variant="bare" data-id={r.id} onclick={toggleRow}></lightning-button-icon>
+                        <div class="ob-who">
+                            <a href="#" data-id={r.id} onclick={openRecord} class="ob-name">{r.name}</a>
+                            <span class="ob-muted">{r.phone} · 등급 {r.grade}</span>
+                        </div>
+                        <span class={r.riskCls}>{r.riskLabel}</span>
+                        <span class="ob-muted">{r.vehicleLabel}</span>
+                        <span class="ob-muted">{r.vocLabel}</span>
+                    </div>
+                    <template lwc:if={r.open}>
+                        <div class="ob-body">
+                            <div class="ob-cards">
+                                <template for:each={r.vehicles} for:item="v">
+                                    <div key={v.id} class="ob-card">
+                                        <div class="ob-card-top">
+                                            <a href="#" data-id={v.id} onclick={openRecord} class="ob-vname">{v.name}</a>
+                                            <span class="ob-plate">{v.plate}</span>
+                                        </div>
+                                        <div class="ob-muted">{v.model} · {v.mileageLabel}</div>
+                                        <div class="ob-muted">{v.warrantyLabel}</div>
+                                        <div class="ob-badges">
+                                            <template for:each={v.badges} for:item="b">
+                                                <span key={b.k} class={b.cls}>{b.text}</span>
+                                            </template>
+                                        </div>
+                                        <lightning-button label="새 VOC" icon-name="utility:add" data-owner={v.ownerId} data-vehicle={v.id}
+                                            onclick={newVoc} class="ob-new"></lightning-button>
+                                    </div>
+                                </template>
+                            </div>
+                            <div class="ob-vocs">
+                                <div class="ob-sub">진행 중 VOC</div>
+                                <template lwc:if={r.hasVocs}>
+                                    <ul>
+                                        <template for:each={r.vocs} for:item="c">
+                                            <li key={c.id}><a href="#" data-id={c.id} onclick={openRecord} class={c.cls}>{c.label}</a></li>
+                                        </template>
+                                    </ul>
+                                </template>
+                                <template lwc:else><span class="ob-muted">없음</span></template>
+                            </div>
+                        </div>
+                    </template>
+                </li>
+            </template>
+        </ul>
+    </div>
+</template>

@@ -1,0 +1,11 @@
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 12px; font-weight: 600; line-height: 1.6; }
+.badge.danger { background: #fdecea; color: #b3261e; }
+.badge.warn { background: #fff4e5; color: #8a4b00; }
+.badge.ok { background: #eaf6ee; color: #1e6b38; }
+.badge.done { background: #f1f2f4; color: #4a4f57; }
+.badge.info { background: #eaf3fd; color: #0b5cab; }.gauge { margin-bottom: 12px; }
+.lbl { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+.track { height: 10px; border-radius: 6px; background: #eef0f3; overflow: hidden; }
+.fill { height: 100%; border-radius: 6px; }
+.muted { font-size: 12px; color: #5c6370; margin-top: 2px; }

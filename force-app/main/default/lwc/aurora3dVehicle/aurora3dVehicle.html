@@ -1,0 +1,66 @@
+<template>
+    <lightning-card title="3D 부위 분해도" icon-name="custom:custom31">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-title_bold slds-m-bottom_x-small">{title}</p>
+            <div class="badges">
+                <template for:each={badges} for:item="b">
+                    <span key={b.key} class={b.cls}>{b.label}</span>
+                </template>
+            </div>
+            <template lwc:if={error}>
+                <div class="slds-notify slds-notify_alert slds-alert_error slds-m-vertical_small" role="alert">{error}</div>
+            </template>
+            <div class="a3d-stage" lwc:dom="manual"></div>
+            <div class="toolbar">
+                <lightning-button variant="brand" label={explodeLabel} onclick={toggleExplode}></lightning-button>
+                <lightning-button label="처음 시점" onclick={handleReset}></lightning-button>
+                <span class="muted">형태</span>
+                <template for:each={shapeButtons} for:item="s">
+                    <lightning-button key={s.key} data-key={s.key} label={s.label} variant={s.variant} onclick={setShape}></lightning-button>
+                </template>
+            </div>
+            <div class="toolbar" role="group" aria-label="계통 필터">
+                <span class="muted">계통</span>
+                <template for:each={systemButtons} for:item="s">
+                    <button key={s.key} data-key={s.key} class="sys" aria-pressed={s.pressed} onclick={toggleSystem}>
+                        <i style={s.swatch}></i>{s.label}
+                    </button>
+                </template>
+            </div>
+            <div class="info">
+                <div class="box">
+                    <p class="slds-text-title_caps">선택한 부품</p>
+                    <template lwc:if={selected}>
+                        <p class="name">{selected.name}</p>
+                        <p>부품번호 {selected.partNumber} · {selected.systemName} 계통</p>
+                        <p>하자 등급 <span class={selected.gradeClass}>{selected.grade}</span>
+                            <template lwc:if={selected.markLabel}> · 상태 <b>{selected.markLabel}</b></template></p>
+                        <p>같은 차량 관련 VOC <b>{selected.vocCount}</b>건 · 정비 <b>{selected.visitCount}</b>건</p>
+                        <p>게시 위키:
+                            <template lwc:if={selected.wikiId}><a onclick={openWiki}>{selected.wikiTitle}</a></template>
+                            <template lwc:else><span class="muted">없음</span></template>
+                        </p>
+                    </template>
+                    <template lwc:else><p class="muted">부품을 클릭하세요. 드래그 = 회전, 휠 = 확대</p></template>
+                </div>
+                <div class="box">
+                    <p class="slds-text-title_caps">표시 중인 부품 (글자 목록)</p>
+                    <template lwc:if={hasMarked}>
+                        <ul class="parts">
+                            <template for:each={markedList} for:item="r">
+                                <li key={r.key}><span>{r.text}</span><b>{r.label}</b></li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template lwc:else><p class="muted">표시할 부품이 없습니다.</p></template>
+                    <div class="legend">
+                        <span><i style="background:#C23934"></i>의심(깜빡임)</span>
+                        <span><i style="background:#DD7A01"></i>점검</span>
+                        <span><i style="background:#8A94A6"></i>교체</span>
+                        <span><i style="border:2px solid #C23934"></i>반복 결함·레몬법 계통</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

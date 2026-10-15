@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>오로라 관련 목록</masterLabel>
+    <description>페이지 레이아웃과 무관하게 관련 레코드를 표로 표시 (UI API getRelatedListRecords)</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="title" type="String" label="제목" required="true"/>
+            <property name="iconName" type="String" label="아이콘" default="standard:related_list"/>
+            <property name="relatedListId" type="String" label="관계 이름 (예: Compensations__r)" required="true"/>
+            <property name="childObject" type="String" label="하위 오브젝트 (예: Compensation__c)" required="true"/>
+            <property name="parentField" type="String" label="상위 참조 필드 (새로 만들기 기본값)"/>
+            <property name="fields" type="String" label="필드 (쉼표 구분, 첫 필드가 링크)" required="true"/>
+            <property name="emptyMessage" type="String" label="빈 목록 문구" default="아직 없습니다."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

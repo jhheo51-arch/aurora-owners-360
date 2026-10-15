@@ -1,0 +1,28 @@
+<template>
+    <section class="hero" aria-label="오늘의 VOC 현황">
+        <template lwc:if={error}><p class="err">{error}</p></template>
+        <template for:each={alerts} for:item="a">
+            <button key={a.alertId} class="alert" data-id={a.alertId} onclick={openAlert}>⚠ 리콜 조기 경보 · {a.label} — 품질·안전 대응 담당 검토</button>
+        </template>
+        <div class="tiles">
+            <template for:each={tiles} for:item="t">
+                <button key={t.key} class={t.cls} data-view={t.view} onclick={openList}>
+                    <span class="num">{t.value}</span>
+                    <span class="lbl">{t.icon} {t.label}</span>
+                </button>
+            </template>
+        </div>
+        <template lwc:if={hasRows}>
+            <p class="cap">첫 응답 전 VOC · 기한 순</p>
+            <ul class="rows">
+                <template for:each={rows} for:item="r">
+                    <li key={r.caseId}>
+                        <span class="disp">{r.display}</span>
+                        <a data-id={r.caseId} onclick={openCase}>VOC {r.caseNumber} · {r.subject}</a>
+                        <span class="muted">기한 {r.due} · {r.handlerName}</span>
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </section>
+</template>

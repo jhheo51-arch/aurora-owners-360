@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customNotifTypeName>오로라 업무 알림</customNotifTypeName>
+    <description>v4.4 팀장 이관·보상 승인 요청·응답 기한 임박/초과·AI 상담 연결 (벨 + 모바일 push)</description>
+    <desktop>true</desktop>
+    <masterLabel>오로라 업무 알림</masterLabel>
+    <mobile>true</mobile>
+    <slack>false</slack>
+</CustomNotificationType>

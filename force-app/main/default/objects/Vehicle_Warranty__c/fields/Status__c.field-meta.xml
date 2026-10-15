@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <formula>IF(End_Date__c &lt; TODAY(), "기간 만료", IF(AND(NOT(ISBLANK(Mileage_Limit_Km__c)), Vehicle__r.Mileage__c &gt; Mileage_Limit_Km__c), "주행거리 초과", "유효"))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>상태</label>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

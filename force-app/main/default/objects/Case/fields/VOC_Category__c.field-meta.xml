@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_Category__c</fullName>
+    <description>안전 결함은 응답 기한 2시간, 즉시 팀장 이관 대상</description>
+    <label>VOC 유형</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>품질 결함</fullName>
+                <default>false</default>
+                <label>품질 결함</label>
+            </value>
+            <value>
+                <fullName>안전 결함</fullName>
+                <default>false</default>
+                <label>안전 결함</label>
+            </value>
+            <value>
+                <fullName>충전·배터리</fullName>
+                <default>false</default>
+                <label>충전·배터리</label>
+            </value>
+            <value>
+                <fullName>커넥티드카 앱</fullName>
+                <default>false</default>
+                <label>커넥티드카 앱</label>
+            </value>
+            <value>
+                <fullName>정비 서비스</fullName>
+                <default>false</default>
+                <label>정비 서비스</label>
+            </value>
+            <value>
+                <fullName>출고·인도</fullName>
+                <default>false</default>
+                <label>출고·인도</label>
+            </value>
+            <value>
+                <fullName>기타</fullName>
+                <default>false</default>
+                <label>기타</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

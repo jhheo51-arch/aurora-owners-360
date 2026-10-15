@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>리콜 조기 경보 기준(v4). 같은 모델 계열·계통 안전 결함 VOC를 이 기간·건수로 센다.</description>
+    <label>리콜 경보 기준</label>
+    <pluralLabel>리콜 경보 기준</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

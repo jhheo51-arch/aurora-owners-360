@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>리콜 조기 경보(v4). 같은 모델 계열·같은 계통 안전 결함 VOC가 기준(Recall_Rule__mdt) 이상이면 Apex가 만들고 갱신한다. 검토는 품질·안전 대응 담당.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ReadWrite</externalSharingModel>
+    <label>리콜 경보</label>
+    <nameField>
+        <displayFormat>RA-{0000}</displayFormat>
+        <label>경보 번호</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+        <startingNumber>1</startingNumber>
+    </nameField>
+    <pluralLabel>리콜 경보</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Model_Line__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>System__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>VOC_Count__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Assigned_Staff__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

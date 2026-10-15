@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <assignments>
+        <name>Sync_From_Model</name>
+        <label>모델 값으로 차종·동력 맞춤</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Model__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Vehicle_Model__r.Model_Line__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Powertrain__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Vehicle_Model__r.Powertrain__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>고객 차량 저장 전: 차량 모델이 있으면 v1 차종·동력 선택 목록을 모델 값으로 맞춘다(PRD Q43). 사람이 차종을 따로 고르지 않게 해 리포트·Flow 호환과 정합성을 함께 지킨다.</description>
+    <environments>Default</environments>
+    <interviewLabel>Vehicle_Before_Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>고객 차량 저장 전 처리 (오로라)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Sync_From_Model</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Vehicle_Model__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Vehicle__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

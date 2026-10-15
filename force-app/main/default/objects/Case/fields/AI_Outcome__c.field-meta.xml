@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AI_Outcome__c</fullName>
+    <description>오로라 AI 상담(AICX)이 만든 VOC의 결과. 표준 Origin은 org 공용이라 쓰지 않음 (PRD §20-2). AI 정보 안내는 v4.3 정보 조회 기록(지표용, 90일 VOC·리콜·홈 지표 제외)</description>
+    <label>AI 상담 결과</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AI 자가 해결</fullName>
+                <default>false</default>
+                <label>AI 자가 해결</label>
+            </value>
+            <value>
+                <fullName>상담사 연결</fullName>
+                <default>false</default>
+                <label>상담사 연결</label>
+            </value>
+            <value>
+                <fullName>AI 접수</fullName>
+                <default>false</default>
+                <label>AI 접수</label>
+            </value>
+            <value>
+                <fullName>AI 정보 안내</fullName>
+                <default>false</default>
+                <label>AI 정보 안내</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

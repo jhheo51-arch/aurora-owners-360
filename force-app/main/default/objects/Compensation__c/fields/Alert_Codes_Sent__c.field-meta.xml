@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Alert_Codes_Sent__c</fullName>
+    <description>v4.4 업무 알림 중복 방지: 이미 보낸 알림 코드(N1·N2·N3-SOON·N3-OVER·N4, 쉼표 구분). AuroraNotifier가 채움</description>
+    <label>보낸 알림</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

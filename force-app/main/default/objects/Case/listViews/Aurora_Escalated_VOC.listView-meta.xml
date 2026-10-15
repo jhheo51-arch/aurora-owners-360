@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Escalated_VOC</fullName>
+    <columns>VOC_Status_Display__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>Vehicle__c</columns>
+    <columns>VOC_Category__c</columns>
+    <columns>CASES.PRIORITY</columns>
+    <columns>VOC_Status__c</columns>
+    <columns>Response_Due_At__c</columns>
+    <columns>Current_Handler__c</columns>
+    <columns>Escalation_Reason__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Escalation_Status__c</field>
+        <operation>equals</operation>
+        <value>요청</value>
+    </filters>
+    <filters>
+        <field>VOC_Status__c</field>
+        <operation>notEqual</operation>
+        <value>종결</value>
+    </filters>
+    <label>팀장 이관 목록</label>
+</ListView>

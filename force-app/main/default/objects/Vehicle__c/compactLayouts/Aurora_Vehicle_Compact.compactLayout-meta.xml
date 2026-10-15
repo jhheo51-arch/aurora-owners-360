@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Vehicle_Compact</fullName>
+    <fields>Name</fields>
+    <fields>Vehicle_Status_Display__c</fields>
+    <fields>Owner_Contact__c</fields>
+    <fields>Vehicle_Model__c</fields>
+    <fields>Plate_Number__c</fields>
+    <fields>Mileage__c</fields>
+    <fields>Warranty_End_Date__c</fields>
+    <label>오로라 차량 강조 패널</label>
+</CompactLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>연락처</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>차량 관계</relationshipLabel>
+    <relationshipName>Vehicle_Parties</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

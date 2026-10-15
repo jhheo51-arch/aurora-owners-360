@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="보증 게이지" icon-name="custom:custom91">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={hasRows}>
+                <template for:each={rows} for:item="r">
+                    <div key={r.key} class="gauge">
+                        <div class="lbl"><b>{r.type}</b><span class={r.badge}>{r.state}</span></div>
+                        <div class="track" role="img" aria-label={r.detail}><div class="fill" style={r.fill}></div></div>
+                        <p class="muted">{r.detail}</p>
+                    </div>
+                </template>
+            </template>
+            <template lwc:else><p class="muted">차량 보증 레코드가 없습니다.</p></template>
+        </div>
+    </lightning-card>
+</template>

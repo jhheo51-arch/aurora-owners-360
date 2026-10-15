@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>승인 단계(팀장/상위)에 맞는 승인자가 보상·조치를 승인 또는 반려</description>
+    <flowDefinition>Compensation_Approval</flowDefinition>
+    <label>승인·반려</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

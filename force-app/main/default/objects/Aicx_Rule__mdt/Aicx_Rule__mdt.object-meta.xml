@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>오로라 AI 상담(AICX) 즉시 연결 규칙 기준값(PRD §20-2). 판단은 Apex 규칙, AI는 안내 문장만.</description>
+    <label>AI 상담 기준</label>
+    <pluralLabel>AI 상담 기준</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

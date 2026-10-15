@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>Aurora_Vehicle_Compact</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>오로라모터스 차주가 보유한 차량. 보증 기간 판단과 VOC 이력의 기준.</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>Private</externalSharingModel>
+    <label>고객 차량</label>
+    <nameField>
+        <displayFormat>VEH-{0000}</displayFormat>
+        <label>차량 번호</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+        <startingNumber>1</startingNumber>
+    </nameField>
+    <pluralLabel>고객 차량</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>VIN__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Owner_Contact__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Model__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Plate_Number__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

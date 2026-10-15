@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title={title} icon-name="custom:custom19">
+        <div class="slds-p-horizontal_medium">
+            <p class="sub">{subtitle}</p>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasRows}>
+                <ol class="list">
+                    <template for:each={rows} for:item="r">
+                        <li key={r.id} class={r.cls}>
+                            <div class="head">
+                                <a data-id={r.id} onclick={open}>{r.name}</a>
+                                <span class="date">{r.date}</span>
+                                <template lwc:if={r.current}><span class="now">지금 보는 정비</span></template>
+                            </div>
+                            <p class="line">
+                                <b>{r.type}</b>
+                                <template lwc:if={r.system}> · {r.system}</template>
+                                <template lwc:if={r.part}> · {r.part}</template>
+                            </p>
+                            <template lwc:if={r.meta}><p class="meta">{r.meta}</p></template>
+                            <template lwc:if={r.symptom}><p class="meta">{r.symptom}</p></template>
+                        </li>
+                    </template>
+                </ol>
+            </template>
+            <template lwc:else>
+                <p class="sub">이 차량의 정비 이력이 없습니다.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

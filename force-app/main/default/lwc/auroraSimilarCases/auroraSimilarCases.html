@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title="유사 사례 상위 3건" icon-name="standard:knowledge">
+        <lightning-button slot="actions" label="AI 해결 가이드" icon-name="utility:sparkles" onclick={makeGuide} disabled={guideBusy}></lightning-button>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={guideBusy}><lightning-spinner size="small" alternative-text="근거를 찾고 정리하는 중"></lightning-spinner></template>
+            <template lwc:if={guideError}><p class="slds-text-color_error">{guideError}</p></template>
+            <template lwc:if={guide}>
+                <div class="rag">
+                    <p class="rag-head">AI 해결 가이드 <span class="rag-note">{guideNote}</span></p>
+                    <p class="rag-text">{guide.text}</p>
+                    <p class="rag-sub">출처 (검색 점수 순)</p>
+                    <ul class="rag-src">
+                        <template for:each={guide.evidence} for:item="e">
+                            <li key={e.recordId}>
+                                <span class="rag-label">{e.label}</span>
+                                <a data-id={e.recordId} onclick={open}>{e.sourceType} · {e.title}</a>
+                                <span class="rag-why"> {e.why} · 점수 {e.score}</span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </template>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasItems}>
+                <template for:each={items} for:item="item">
+                    <div key={item.caseId} class="slds-box slds-box_x-small slds-m-bottom_x-small">
+                        <p>
+                            <a data-id={item.caseId} onclick={open}>VOC {item.caseNumber} · {item.subject}</a>
+                            <lightning-badge label={item.score} class="slds-m-left_x-small"></lightning-badge>
+                        </p>
+                        <p class="slds-text-body_small slds-text-color_weak">{item.reason} · {item.status}</p>
+                        <template lwc:if={item.wikiTitle}>
+                            <p class="slds-text-body_small">고장 위키: {item.wikiTitle}</p>
+                        </template>
+                        <template lwc:if={item.resolution}>
+                            <p class="slds-text-body_small">해결: {item.resolution}</p>
+                        </template>
+                    </div>
+                </template>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">비슷한 사례가 없습니다.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

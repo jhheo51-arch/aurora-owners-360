@@ -1,0 +1,96 @@
+<template>
+    <div class="wrap">
+        <p class="notice" role="note">판단은 Apex 규칙, AI는 안내 문장만 만듭니다</p>
+        <div class={gridClass}>
+            <section class="chat" aria-label="차주 채팅">
+                <header class="head"><b>오로라 AI 상담</b><lightning-button-icon icon-name="utility:refresh" alternative-text="새 상담" title="새 상담" onclick={restart}></lightning-button-icon></header>
+                <div class="log" aria-live="polite">
+                    <template for:each={messages} for:item="m">
+                        <div key={m.id} class={m.cls}>{m.text}</div>
+                    </template>
+                </div>
+                <div class="input">
+                    <template lwc:if={isIdentify}>
+                        <div class="row">
+                            <lightning-input label="휴대폰 번호" placeholder="010-0000-0000" value={phone} onchange={onPhone}></lightning-input>
+                            <lightning-input label="차량 번호 뒤 4자리" placeholder="1234" max-length="4" value={plate} onchange={onPlate}></lightning-input>
+                        </div>
+                        <lightning-button variant="brand" label="본인 확인" onclick={doIdentify} disabled={busy}></lightning-button>
+                    </template>
+                    <template lwc:if={isInfo}>
+                        <div class="row" role="group" aria-label="빠른 답">
+                            <lightning-button variant="success" label="궁금증 해결됐어요" onclick={infoSolved} disabled={busy}></lightning-button>
+                            <lightning-button label="상담사 연결해 주세요" onclick={infoHuman} disabled={busy}></lightning-button>
+                        </div>
+                    </template>
+                    <template lwc:if={isAsk}>
+                        <lightning-textarea label={askLabel} value={question} onchange={onQuestion}></lightning-textarea>
+                        <lightning-button variant="brand" label="보내기" onclick={doAsk} disabled={busy}></lightning-button>
+                    </template>
+                    <template lwc:if={isConfirm}>
+                        <div class="row">
+                            <lightning-button variant="success" label="해결됐어요" onclick={solved} disabled={busy}></lightning-button>
+                            <lightning-button variant="destructive-text" label="아직이요" onclick={notSolved} disabled={busy}></lightning-button>
+                        </div>
+                    </template>
+                    <template lwc:if={isCsat}>
+                        <div class="row" role="group" aria-label="만족도 별점">
+                            <template for:each={stars} for:item="s">
+                                <lightning-button key={s.n} data-n={s.n} label={s.label} onclick={rate} disabled={busy}></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+                    <template lwc:if={isEnd}>
+                        <lightning-button label="새 상담 시작" onclick={restart}></lightning-button>
+                    </template>
+                    <template lwc:if={busy}><lightning-spinner size="small" alternative-text="처리 중"></lightning-spinner></template>
+                </div>
+            </section>
+
+            <section class="why" aria-label="판단 근거">
+                <h3>판단 근거 <span class="muted">(상담원용)</span></h3>
+                <dl>
+                    <dt>본인 확인</dt>
+                    <dd><template lwc:if={who}>{who.name} · 등급 {who.grade} · 위험 {who.risk}<br>{who.vehicleLabel}</template><template lwc:else>미확인</template></dd>
+                    <dt>판정</dt>
+                    <dd><b>{actionLabel}</b><template lwc:if={decision}> · 유형 {decision.category}</template></dd>
+                    <dt>걸린 즉시 연결 규칙</dt>
+                    <dd>
+                        <template lwc:if={hasRules}>
+                            <ul class="rules">
+                                <template for:each={rules} for:item="r">
+                                    <li key={r.code}><span class="code">{r.code}</span> {r.label} <span class="muted">{r.detail}</span></li>
+                                </template>
+                            </ul>
+                        </template>
+                        <template lwc:else><span class="muted">없음</span></template>
+                    </dd>
+                    <dt>정보 조회</dt>
+                    <dd>{intentLine}<template lwc:if={decision}><br><span class="muted">사용한 데이터: {infoSources}</span></template></dd>
+                    <dt>상담원 참고</dt>
+                    <dd>
+                        <template lwc:if={hasNotes}>
+                            <ul class="rules">
+                                <template for:each={notes} for:item="r">
+                                    <li key={r.code}><span class="code note">{r.code}</span> {r.label} <span class="muted">{r.detail}</span></li>
+                                </template>
+                            </ul>
+                            <span class="muted">정보 조회라 연결 사유로 쓰지 않음</span>
+                        </template>
+                        <template lwc:else><span class="muted">없음</span></template>
+                    </dd>
+                    <dt>위키</dt>
+                    <dd>{wikiLine}</dd>
+                    <dt>배정</dt>
+                    <dd><template lwc:if={noAssign}>배정 없음 <span class="muted">(AI가 데이터로 안내)</span></template><template lwc:elseif={decision}>상담원 {decision.advisorName}<template lwc:if={decision.needsManager}> · 팀장 {decision.managerName} 이관</template><br><span class="muted">{decision.assignReason}</span></template><template lwc:else>-</template></dd>
+                    <dt>생성 VOC</dt>
+                    <dd><template lwc:if={outcome}><a onclick={openCase}>VOC {outcome.caseNumber}</a> · {outcome.outcome}</template><template lwc:else>-</template></dd>
+                </dl>
+                <template lwc:if={canHandover}>
+                    <lightning-button label="인계 요약 생성(AI)" onclick={makeHandover} disabled={handoverBusy}></lightning-button>
+                    <template lwc:if={handover}><pre class="handover">{handover}</pre></template>
+                </template>
+            </section>
+        </div>
+    </div>
+</template>

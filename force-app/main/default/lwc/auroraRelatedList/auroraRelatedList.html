@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title={cardTitle} icon-name={iconName}>
+        <lightning-button slot="actions" label="새로 만들기" onclick={createNew}></lightning-button>
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasRows}>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <template for:each={columns} for:item="col">
+                                <th key={col.key} scope="col"><div class="slds-truncate">{col.label}</div></th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={rows} for:item="row">
+                            <tr key={row.id}>
+                                <template for:each={row.cells} for:item="cell">
+                                    <td key={cell.key}>
+                                        <template lwc:if={cell.isLink}>
+                                            <a data-id={row.id} onclick={open}>{cell.value}</a>
+                                        </template>
+                                        <template lwc:else>{cell.value}</template>
+                                    </td>
+                                </template>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">{emptyMessage}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

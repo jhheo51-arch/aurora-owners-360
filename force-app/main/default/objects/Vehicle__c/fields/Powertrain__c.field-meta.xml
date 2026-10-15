@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Powertrain__c</fullName>
+    <label>동력 방식</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>전기</fullName>
+                <default>false</default>
+                <label>전기</label>
+            </value>
+            <value>
+                <fullName>하이브리드</fullName>
+                <default>false</default>
+                <label>하이브리드</label>
+            </value>
+            <value>
+                <fullName>내연기관</fullName>
+                <default>false</default>
+                <label>내연기관</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Segment__c</fullName>
+    <label>고객 구분(오로라)</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>가구</fullName>
+                <default>false</default>
+                <label>가구</label>
+            </value>
+            <value>
+                <fullName>법인 Fleet</fullName>
+                <default>false</default>
+                <label>법인 Fleet</label>
+            </value>
+            <value>
+                <fullName>공급사</fullName>
+                <default>false</default>
+                <label>공급사</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

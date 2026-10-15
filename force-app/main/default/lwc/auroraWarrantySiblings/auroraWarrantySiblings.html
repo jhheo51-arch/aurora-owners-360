@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title={title} icon-name="custom:custom91">
+        <div class="slds-p-horizontal_medium">
+            <p class="sub">{subtitle}</p>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasRows}>
+                <ol class="list">
+                    <template for:each={rows} for:item="r">
+                        <li key={r.id} class={r.cls}>
+                            <div class="head">
+                                <a data-id={r.id} onclick={open}>{r.name}</a>
+                                <b>{r.type}</b>
+                                <span class={r.badgeCls}>{r.badge}</span>
+                                <template lwc:if={r.current}><span class="now">지금 보는 보증</span></template>
+                            </div>
+                            <p class="meta">{r.period}<template lwc:if={r.limit}> · {r.limit}</template></p>
+                        </li>
+                    </template>
+                </ol>
+            </template>
+            <template lwc:else>
+                <p class="sub">이 차량의 보증 기록이 없습니다.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

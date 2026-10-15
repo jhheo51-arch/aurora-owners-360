@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <comment>오로라 앱에서만 오로라 홈 사용</comment>
+        <content>Aurora_Home</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>오로라 앱에서만 차량 레코드 페이지(타임라인) 사용</comment>
+        <content>Aurora_Vehicle_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Vehicle__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>오로라 앱에서만 VOC 레코드 페이지 사용</comment>
+        <content>Aurora_VOC_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>오로라 앱에서만 차주 레코드 페이지 사용</comment>
+        <content>Aurora_Owner_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#0B3D91</headerColor>
+        <logo>AuroraSymbol</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <description>오로라모터스 고객케어센터 차주 VOC 처리 앱: 접수 → 보유 차량 확인 → 보상·조치 → 종결</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>오로라 오너스 360</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Aurora_Owners_Vehicles</tabs>
+    <tabs>standard-Case</tabs>
+    <tabs>Compensation__c</tabs>
+    <tabs>Care_Staff__c</tabs>
+    <tabs>Service_Visit__c</tabs>
+    <tabs>Failure_Mode__c</tabs>
+    <tabs>Recall_Alert__c</tabs>
+    <tabs>Aurora_AI_Care_Demo</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>

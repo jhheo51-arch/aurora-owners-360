@@ -1,0 +1,35 @@
+<template>
+    <template lwc:if={s}>
+        <section class={cardClass} aria-label="VOC 상황">
+            <div class="grid">
+                <div>
+                    <p class="k">{headline}</p>
+                    <p class="title">{s.subject}</p>
+                    <p class="sub">
+                        <template lwc:if={s.ownerName}><a onclick={openOwner}>{ownerText}</a></template>
+                        <template lwc:if={s.vehicleLabel}> · <a onclick={openVehicle}>{s.vehicleLabel}</a></template>
+                    </p>
+                </div>
+                <div>
+                    <p class="k">VOC 상태</p>
+                    <p class="v">{s.vocStatus} <span class="muted">{stepText}</span></p>
+                </div>
+                <div>
+                    <p class="k">{due.label}</p>
+                    <p class={due.cls}>{due.main}</p>
+                    <p class="muted">{due.sub}</p>
+                </div>
+                <div>
+                    <p class="k">현재 처리 직원</p>
+                    <p class="v">{s.handlerName}</p>
+                    <p class="muted">{handlerSub}</p>
+                </div>
+            </div>
+            <div class="badges row">
+                <template for:each={badges} for:item="b">
+                    <span key={b.key} class={b.cls}>{b.label}</span>
+                </template>
+            </div>
+        </section>
+    </template>
+</template>

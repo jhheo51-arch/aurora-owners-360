@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <assignments>
+        <name>Set_Response_Due</name>
+        <label>응답 기한 계산</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Response_Due_At__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fDueAt</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Route_Escalation</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Status_Closed</name>
+        <label>표준 상태 Closed</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Was_Escalation_Requested</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Escalation_Resolved</name>
+        <label>이관 처리완료</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Escalation_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>처리완료</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Escalation</name>
+        <label>팀장 이관</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Current_Handler__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Manager_Employee__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Escalation_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>요청</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Escalation_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fEscalationReason</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Escalated_At__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Set_Advisor_Handler</name>
+        <label>상담원 처리</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Current_Handler__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Advisor__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Escalation_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>미요청</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <customErrors>
+        <name>Error_No_Manager</name>
+        <label>오류: 팀장 없음</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>팀장 이관이 필요한 VOC입니다(도움 요청·안전 결함·응답 기한 초과). 담당 팀장을 지정하세요.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Error_Same_Person</name>
+        <label>오류: 팀장과 상담원 동일</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>담당 팀장과 담당 상담원은 같은 직원일 수 없습니다.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <customErrors>
+        <name>Error_No_Reason</name>
+        <label>오류: 도움 요청 사유 없음</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>팀장 도움 필요를 체크했다면 도움 요청 사유를 입력하세요.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Due_Is_Blank</name>
+        <label>응답 기한 비어 있음?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Route_Escalation</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>기한 있음</defaultConnectorLabel>
+        <rules>
+            <name>Due_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Response_Due_At__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Response_Due</targetReference>
+            </connector>
+            <label>비어 있음</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Route_Escalation</name>
+        <label>이관 결정표</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Set_Advisor_Handler</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>그 외</defaultConnectorLabel>
+        <rules>
+            <name>Is_Closed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.VOC_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>종결</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Status_Closed</targetReference>
+            </connector>
+            <label>1 종결</label>
+        </rules>
+        <rules>
+            <name>Already_Escalated</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Escalation_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>요청</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Escalation_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>처리완료</stringValue>
+                </rightValue>
+            </conditions>
+            <label>2 이미 이관됨</label>
+        </rules>
+        <rules>
+            <name>Needs_Escalation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fNeedsEscalation</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Validate_Escalation</targetReference>
+            </connector>
+            <label>3 이관 필요</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Validate_Escalation</name>
+        <label>이관 검증</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Set_Escalation</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>통과</defaultConnectorLabel>
+        <rules>
+            <name>No_Manager</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Manager_Employee__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_No_Manager</targetReference>
+            </connector>
+            <label>팀장 없음</label>
+        </rules>
+        <rules>
+            <name>Same_Person</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fSamePerson</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_Same_Person</targetReference>
+            </connector>
+            <label>팀장 = 상담원</label>
+        </rules>
+        <rules>
+            <name>No_Reason</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fMissingReason</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Error_No_Reason</targetReference>
+            </connector>
+            <label>사유 없음</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Was_Escalation_Requested</name>
+        <label>이관 요청 중이었나?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>아니오</defaultConnectorLabel>
+        <rules>
+            <name>Requested</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Escalation_Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>요청</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_Escalation_Resolved</targetReference>
+            </connector>
+            <label>요청</label>
+        </rules>
+    </decisions>
+    <description>오로라 VOC 저장 전 처리: ① 응답 기한 자동 계산(안전 결함 2h / High 4h / Medium·공란 24h / Low 48h) ② 이관 결정표(종결 → 이미 이관 → 도움 요청·안전 결함·기한 초과 이관 → 상담원 처리). PRD §7.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>fBaseTime</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(ISNULL({!$Record.CreatedDate}), {!$Flow.CurrentDateTime}, {!$Record.CreatedDate})</expression>
+    </formulas>
+    <formulas>
+        <name>fDueHours</name>
+        <dataType>Number</dataType>
+        <expression>IF(ISPICKVAL({!$Record.VOC_Category__c}, &quot;안전 결함&quot;), 2,
+CASE(TEXT({!$Record.Priority}), &quot;High&quot;, 4, &quot;Low&quot;, 48, 24))</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>fDueAt</name>
+        <dataType>DateTime</dataType>
+        <expression>{!fBaseTime} + ({!fDueHours} / 24)</expression>
+    </formulas>
+    <formulas>
+        <name>fNeedsEscalation</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+    {!$Record.Needs_Manager__c},
+    ISPICKVAL({!$Record.VOC_Category__c}, &quot;안전 결함&quot;),
+    AND(
+        NOT(ISBLANK({!$Record.Response_Due_At__c})),
+        ISBLANK({!$Record.First_Response_At__c}),
+        {!$Record.Response_Due_At__c} &lt; {!$Flow.CurrentDateTime}
+    )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>fEscalationReason</name>
+        <dataType>String</dataType>
+        <expression>IF({!$Record.Needs_Manager__c}, {!$Record.Assistance_Reason__c},
+IF(ISPICKVAL({!$Record.VOC_Category__c}, &quot;안전 결함&quot;), &quot;안전 결함 우선 처리&quot;, &quot;응답 기한 초과&quot;))</expression>
+    </formulas>
+    <formulas>
+        <name>fSamePerson</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(NOT(ISBLANK({!$Record.Advisor__c})), {!$Record.Manager_Employee__c} = {!$Record.Advisor__c})</expression>
+    </formulas>
+    <formulas>
+        <name>fMissingReason</name>
+        <dataType>Boolean</dataType>
+        <expression>AND({!$Record.Needs_Manager__c}, ISBLANK({!$Record.Assistance_Reason__c}))</expression>
+    </formulas>
+    <interviewLabel>VOC_Case_Before_Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>VOC 저장 전 처리 (오로라)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Due_Is_Blank</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

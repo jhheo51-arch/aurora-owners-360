@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle_Status_Display__c</fullName>
+    <description>리스트 뷰 첫 열·축소 레이아웃용 차량 품질 신호(기호+글자) (v3.5 S4)</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(Lemon_Law_Status__c, "해당 없음") || ISBLANK(TEXT(Lemon_Law_Status__c)), NOT(Repeat_Defect__c), OR(ISBLANK(Warranty_End_Date__c), Warranty_End_Date__c &gt;= TODAY())),
+"✓ 정상",
+TRIM(
+IF(ISPICKVAL(Lemon_Law_Status__c, "대상 가능"), "⚖ 레몬법 대상 가능 ", IF(ISPICKVAL(Lemon_Law_Status__c, "주의"), "⚖ 레몬법 주의 ", "")) &amp;
+IF(Repeat_Defect__c, "↻ 반복 결함(" &amp; Repeat_Defect_System__c &amp; ") ", "") &amp;
+IF(AND(NOT(ISBLANK(Warranty_End_Date__c)), Warranty_End_Date__c &lt; TODAY()), "◇ 일반 보증 만료", "")))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>레몬법 상태 / 반복 결함 계통 / 일반 보증 만료. 해당 없으면 정상</inlineHelpText>
+    <label>품질 신호</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

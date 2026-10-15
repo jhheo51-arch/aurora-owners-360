@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Escalation_Status__c</fullName>
+    <label>이관 상태</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>미요청</fullName>
+                <default>true</default>
+                <label>미요청</label>
+            </value>
+            <value>
+                <fullName>요청</fullName>
+                <default>false</default>
+                <label>요청</label>
+            </value>
+            <value>
+                <fullName>처리완료</fullName>
+                <default>false</default>
+                <label>처리완료</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

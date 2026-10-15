@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lemon_Law_Status__c</fullName>
+    <description>정비 이력 기준 자동 판정(LemonLawEvaluator). 대상 가능 = 교환·환불 중재 대상일 수 있음</description>
+    <label>레몬법 상태</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>해당 없음</fullName>
+                <default>true</default>
+                <label>해당 없음</label>
+            </value>
+            <value>
+                <fullName>주의</fullName>
+                <default>false</default>
+                <label>주의</label>
+            </value>
+            <value>
+                <fullName>대상 가능</fullName>
+                <default>false</default>
+                <label>대상 가능</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

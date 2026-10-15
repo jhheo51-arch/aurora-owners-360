@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>기본 (PRD §20-2)</label>
+    <protected>false</protected>
+    <values>
+        <field>Allowed_Categories__c</field>
+        <value xsi:type="xsd:string">커넥티드카 앱,충전·배터리,출고·인도</value>
+    </values>
+    <values>
+        <field>Complaint_Keywords__c</field>
+        <value xsi:type="xsd:string">환불,소송,언론,신고,고발,교환해</value>
+    </values>
+    <values>
+        <field>Emotion_Keywords__c</field>
+        <value xsi:type="xsd:string">짜증,화나,화가,열받,어이없,황당,답답,최악,장난하,몇 번째,몇번째,도대체</value>
+    </values>
+    <values>
+        <field>Human_Keywords__c</field>
+        <value xsi:type="xsd:string">상담사,상담원,사람이랑,사람하고,직원,통화하고,전화 주세요,전화해 주세요</value>
+    </values>
+    <values>
+        <field>Intent_Case_Status__c</field>
+        <value xsi:type="xsd:string">접수한,문의한 거,VOC,처리 상황,답변 언제,어떻게 됐</value>
+    </values>
+    <values>
+        <field>Intent_Maintenance__c</field>
+        <value xsi:type="xsd:string">정기점검,정기 점검,점검 언제,점검 주기,점검 시기,점검 받</value>
+    </values>
+    <values>
+        <field>Intent_Repair_Status__c</field>
+        <value xsi:type="xsd:string">수리 언제,언제 끝,수리 진행,수리 상황,입고한,맡긴,찾으러</value>
+    </values>
+    <values>
+        <field>Intent_Vehicle_Info__c</field>
+        <value xsi:type="xsd:string">연식,출고일,배터리 용량,주행거리,몇 km,트림,제 차 정보</value>
+    </values>
+    <values>
+        <field>Intent_Warranty__c</field>
+        <value xsi:type="xsd:string">보증,워런티,무상 수리 기간</value>
+    </values>
+    <values>
+        <field>Min_Match_Score__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+    <values>
+        <field>Safety_Keywords__c</field>
+        <value xsi:type="xsd:string">브레이크,경고등,화재,연기,타는 냄새,핸들,급발진,제동</value>
+    </values>
+    <values>
+        <field>VOC_90d_Threshold__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+</CustomMetadata>

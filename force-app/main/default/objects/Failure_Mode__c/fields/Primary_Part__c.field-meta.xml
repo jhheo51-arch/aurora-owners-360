@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Part__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>대표 부품</label>
+    <referenceTo>Part__c</referenceTo>
+    <relationshipLabel>고장 위키</relationshipLabel>
+    <relationshipName>Failure_Modes</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

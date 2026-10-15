@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Open_Alerts</fullName>
+    <columns>NAME</columns>
+    <columns>Status__c</columns>
+    <columns>Model_Line__c</columns>
+    <columns>System__c</columns>
+    <columns>VOC_Count__c</columns>
+    <columns>Last_Detected_At__c</columns>
+    <columns>Assigned_Staff__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status__c</field>
+        <operation>notEqual</operation>
+        <value>종결</value>
+    </filters>
+    <label>진행 중 경보</label>
+</ListView>

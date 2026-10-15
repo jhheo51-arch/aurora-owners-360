@@ -1,0 +1,112 @@
+.a3d-stage {
+    position: relative;
+    height: 420px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(#f5f7fb, #e8eef8);
+    border: 1px solid #d8dde6;
+    margin-top: 8px;
+}
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 8px;
+}
+.muted {
+    color: #5c6370;
+    font-size: 12px;
+}
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.badge.danger { background: #fdecea; color: #b3261e; }
+.badge.warn { background: #fff4e5; color: #8a4b00; }
+.badge.ok { background: #eaf6ee; color: #1e6b38; }
+.badge.done { background: #f1f2f4; color: #4a4f57; }
+.badge.info { background: #eaf3fd; color: #0b5cab; }
+.sys {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid #0b3d91;
+    background: #e8eef8;
+    color: #0b3d91;
+    font-weight: 600;
+    cursor: pointer;
+}
+.sys[aria-pressed='false'] {
+    background: #fff;
+    color: #5c6370;
+    border-color: #d8dde6;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+.sys i {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    display: inline-block;
+}
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+}
+.box {
+    border: 1px solid #d8dde6;
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+.box p {
+    margin-bottom: 4px;
+}
+.name {
+    font-size: 15px;
+    font-weight: 700;
+}
+.parts {
+    font-size: 12px;
+    max-height: 180px;
+    overflow: auto;
+}
+.parts li {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 4px 0;
+    border-bottom: 1px solid #eef0f3;
+}
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 12px;
+}
+.legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+@media (max-width: 600px) {
+    .info {
+        grid-template-columns: 1fr;
+    }
+}

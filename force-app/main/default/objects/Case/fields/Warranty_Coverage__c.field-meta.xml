@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warranty_Coverage__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>VOC 저장 시 차량 보증 레코드 기준(기간+주행거리 중 먼저 도달) 판정 — PRD Q45</description>
+    <label>보증 적용(기간·주행거리)</label>
+    <type>Checkbox</type>
+</CustomField>

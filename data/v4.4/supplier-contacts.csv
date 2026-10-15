@@ -1,0 +1,7 @@
+Aurora_Key__c,LastName,Account.Aurora_Key__c,Contact_Role__c,Title,Email,Phone
+SUP-BAT-C1,박진우,SUP-BAT,공급사 담당자,품질 담당 책임,jinwoo.park@supplier.example.com,02-0000-1101
+SUP-DRV-C1,이도윤,SUP-DRV,공급사 담당자,품질 담당 선임,doyun.lee@supplier.example.com,02-0000-1102
+SUP-BRK-C1,최수아,SUP-BRK,공급사 담당자,품질 담당 책임,sua.choi@supplier.example.com,02-0000-1103
+SUP-HVAC-C1,문하린,SUP-HVAC,공급사 담당자,기술 영업 매니저,harin.moon@supplier.example.com,02-0000-1104
+SUP-ELC-C1,정태민,SUP-ELC,공급사 담당자,품질 담당 선임,taemin.jung@supplier.example.com,02-0000-1105
+SUP-BDY-C1,한지호,SUP-BDY,공급사 담당자,품질 담당 매니저,jiho.han@supplier.example.com,02-0000-1106

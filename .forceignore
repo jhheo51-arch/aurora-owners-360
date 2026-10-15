@@ -1,0 +1,11 @@
+package.xml
+
+**/jsconfig.json
+**/.eslintrc.json
+**/__tests__/**
+
+node_modules/
+
+# v4: sf agent publish authoring-bundle 이 생성·가져오는 파일 (원본은 aiAuthoringBundles)
+**/aiAgents/**
+**/aiAgentDefinitionVersions/**

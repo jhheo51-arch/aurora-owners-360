@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pending_Extension_Count__c</fullName>
+    <description>승인 상태 '요청'인 보증 연장 수 (금액과 무관하게 승인 필요)</description>
+    <label>미승인 보증 연장 수</label>
+    <summaryFilterItems>
+        <field>Compensation__c.Approval_Status__c</field>
+        <operation>equals</operation>
+        <value>요청</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Compensation__c.Compensation_Type__c</field>
+        <operation>equals</operation>
+        <value>보증 연장</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Compensation__c.Case__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

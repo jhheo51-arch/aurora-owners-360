@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Applicable_Models__c</fullName>
+    <label>적용 차종</label>
+    <required>false</required>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>오로라 E5</fullName>
+                <default>false</default>
+                <label>오로라 E5</label>
+            </value>
+            <value>
+                <fullName>노스라이트</fullName>
+                <default>false</default>
+                <label>노스라이트</label>
+            </value>
+            <value>
+                <fullName>시티로</fullName>
+                <default>false</default>
+                <label>시티로</label>
+            </value>
+            <value>
+                <fullName>오로라 GT</fullName>
+                <default>false</default>
+                <label>오로라 GT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

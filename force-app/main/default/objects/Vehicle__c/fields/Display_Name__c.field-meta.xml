@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Display_Name__c</fullName>
+    <description>선택 목록·Flow 화면용 표시명 (예: VEH-0001 · 오로라 E5 · 123가 4567)</description>
+    <formula>Name &amp; &quot; · &quot; &amp; TEXT(Model__c) &amp; &quot; · &quot; &amp; IF(ISBLANK(Plate_Number__c), &quot;출고 대기&quot;, Plate_Number__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>차량 표시명</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

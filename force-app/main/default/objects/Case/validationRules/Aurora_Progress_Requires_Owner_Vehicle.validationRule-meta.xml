@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Progress_Requires_Owner_Vehicle</fullName>
+    <active>true</active>
+    <description>오로라 VOC: 차주·차량 없이 '접수' 다음 단계로 이동 불가 (PRD Q28 ③). 오로라 VOC가 아닌 Case(VOC 상태 공란)는 대상 아님.</description>
+    <errorConditionFormula>AND(
+    NOT(ISBLANK(TEXT(VOC_Status__c))),
+    NOT(ISPICKVAL(VOC_Status__c, &quot;접수&quot;)),
+    OR(ISBLANK(ContactId), ISBLANK(Vehicle__c))
+)</errorConditionFormula>
+    <errorMessage>차주(연락처)와 고객 차량을 먼저 연결해야 '접수' 다음 단계로 진행할 수 있습니다.</errorMessage>
+</ValidationRule>

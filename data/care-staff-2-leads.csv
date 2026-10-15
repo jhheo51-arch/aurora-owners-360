@@ -1,0 +1,6 @@
+Staff_Number__c,Name,Role__c,Work_Email__c,Active__c,Manager__r.Staff_Number__c
+AUR-CS-101,정원이,상담팀장,wonee.jung@aurora.example.com,true,AUR-CS-100
+AUR-CS-201,도하람,EV 기술 상담,haram.do@aurora.example.com,true,AUR-CS-100
+AUR-CS-202,봉유진,보상 심사,yujin.bong@aurora.example.com,true,AUR-CS-100
+AUR-CS-203,연태오,품질·안전 대응,taeo.yeon@aurora.example.com,true,AUR-CS-100
+AUR-CS-204,국하율,서비스센터 협력,hayul.guk@aurora.example.com,true,AUR-CS-100

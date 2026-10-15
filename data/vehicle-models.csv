@@ -1,0 +1,5 @@
+Model_Code__c,Name,Model_Line__c,Powertrain__c,Trim__c,Battery_Capacity_kWh__c,Base_Price__c,General_Warranty_Months__c,General_Warranty_Km__c,Powertrain_Warranty_Months__c,Powertrain_Warranty_Km__c,Battery_Warranty_Months__c,Battery_Warranty_Km__c,Maintenance_Interval_Months__c,Maintenance_Interval_Km__c
+AUR-E5-LR,오로라 E5 롱레인지,오로라 E5,전기,Long Range,77.4,52900000,36,60000,60,100000,96,160000,12,15000
+AUR-NL-AWD,노스라이트 AWD,노스라이트,전기,AWD,84.0,61500000,36,60000,60,100000,96,160000,12,15000
+AUR-CT-STD,시티로 스탠다드,시티로,전기,Standard,49.0,32800000,36,60000,60,100000,96,160000,12,15000
+AUR-GT-HEV,오로라 GT 하이브리드,오로라 GT,하이브리드,Premium,1.5,45200000,36,60000,60,100000,,,12,10000

@@ -1,0 +1,50 @@
+.sub {
+    font-size: 12px;
+    color: #5c6370;
+    margin-bottom: 8px;
+}
+.list {
+    max-height: 640px;
+    overflow-y: auto;
+}
+.item {
+    border-left: 3px solid #d8dde6;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+}
+.item.current {
+    border-left-color: #0b3d91;
+    background: #e8eef8;
+    border-radius: 0 6px 6px 0;
+}
+.head {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+}
+.badge {
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.badge.ok {
+    background: #eaf6ee;
+    color: #1e6b38;
+}
+.badge.done {
+    background: #f1f2f4;
+    color: #4a4f57;
+}
+.now {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0b3d91;
+}
+.meta {
+    font-size: 12px;
+    color: #5c6370;
+    margin-top: 2px;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Latest_Case__c</fullName>
+    <label>최근 VOC</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Case</referenceTo>
+    <relationshipLabel>리콜 경보(최근 VOC)</relationshipLabel>
+    <relationshipName>Latest_Recall_Alerts</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

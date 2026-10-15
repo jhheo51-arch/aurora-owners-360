@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>검토 상태</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>신규</fullName>
+                <default>true</default>
+                <label>신규</label>
+            </value>
+            <value>
+                <fullName>검토 중</fullName>
+                <default>false</default>
+                <label>검토 중</label>
+            </value>
+            <value>
+                <fullName>리콜 권고</fullName>
+                <default>false</default>
+                <label>리콜 권고</label>
+            </value>
+            <value>
+                <fullName>종결</fullName>
+                <default>false</default>
+                <label>종결</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

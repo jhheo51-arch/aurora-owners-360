@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_Key__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>샘플 데이터 적재·재실행 중복 확인용 키 (예: VOC-A)</description>
+    <externalId>true</externalId>
+    <label>원본 식별키</label>
+    <length>40</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

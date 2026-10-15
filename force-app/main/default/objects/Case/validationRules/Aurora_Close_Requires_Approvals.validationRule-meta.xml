@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Close_Requires_Approvals</fullName>
+    <active>true</active>
+    <description>오로라 VOC: 승인 대기 보상·조치가 있으면 종결 불가 (PRD Q28 ②)</description>
+    <errorConditionFormula>AND(ISPICKVAL(VOC_Status__c, &quot;종결&quot;), Pending_Approval_Count__c &gt; 0)</errorConditionFormula>
+    <errorDisplayField>VOC_Status__c</errorDisplayField>
+    <errorMessage>승인 대기 중인 보상·조치가 있습니다. 승인 또는 반려한 뒤 종결하세요.</errorMessage>
+</ValidationRule>

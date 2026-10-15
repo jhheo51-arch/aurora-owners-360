@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recall_Alert__c</fullName>
+    <description>리콜 조기 경보에 묶인 안전 결함 VOC (v4, Apex 설정)</description>
+    <label>리콜 경보</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Recall_Alert__c</referenceTo>
+    <relationshipLabel>관련 VOC</relationshipLabel>
+    <relationshipName>Cases</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

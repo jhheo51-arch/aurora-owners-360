@@ -1,0 +1,5 @@
+Staff_Number__c,Name,Role__c,Work_Email__c,Active__c,Manager__r.Staff_Number__c
+AUR-CS-102,미나미,상담원,minami@aurora.example.com,true,AUR-CS-101
+AUR-CS-103,진경은,상담원,kyungeun.jin@aurora.example.com,true,AUR-CS-101
+AUR-CS-104,김가영,상담원,gayoung.kim@aurora.example.com,true,AUR-CS-101
+AUR-CS-105,이예빈,상담원,yebin.lee@aurora.example.com,true,AUR-CS-101

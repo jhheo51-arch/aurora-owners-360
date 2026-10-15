@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_AI_Care_Results</fullName>
+    <columns>VOC_Status_Display__c</columns>
+    <columns>CASES.CASE_NUMBER</columns>
+    <columns>CASES.SUBJECT</columns>
+    <columns>NAME</columns>
+    <columns>AI_Outcome__c</columns>
+    <columns>Handoff_Reason__c</columns>
+    <columns>CSAT__c</columns>
+    <columns>Advisor__c</columns>
+    <columns>CASES.CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>AI_Outcome__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>AI 상담 결과</label>
+</ListView>

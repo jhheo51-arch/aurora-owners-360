@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOC_Status_Display__c</fullName>
+    <description>리스트 뷰 첫 열용 상태 표시(기호+글자). 색만으로 전달하지 않기 위해 기호와 글자를 함께 씀 (v3.5 S4)</description>
+    <externalId>false</externalId>
+    <formula>IF(ISPICKVAL(VOC_Status__c, "종결"), "✓ 종결",
+IF(ISPICKVAL(VOC_Category__c, "안전 결함"), "⚠ 안전 결함 · ", "") &amp;
+IF(AND(ISBLANK(First_Response_At__c), NOT(ISBLANK(Response_Due_At__c)), Response_Due_At__c &lt; NOW()), "⏱ 기한 초과",
+IF(AND(ISBLANK(First_Response_At__c), NOT(ISBLANK(Response_Due_At__c)), Response_Due_At__c - NOW() &lt; 2/24), "⏳ 기한 임박",
+IF(ISPICKVAL(Escalation_Status__c, "요청"), "↑ 이관 대기",
+"● 진행 중"))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>종결 / 안전 결함 / 기한 초과(첫 응답 없이 기한 지남) / 기한 임박(2시간 이내) / 이관 대기 / 진행 중</inlineHelpText>
+    <label>상태 표시</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

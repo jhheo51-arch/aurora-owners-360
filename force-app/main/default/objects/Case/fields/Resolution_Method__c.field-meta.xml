@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resolution_Method__c</fullName>
+    <label>해결 방식</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>상담 안내</fullName>
+                <default>false</default>
+                <label>상담 안내</label>
+            </value>
+            <value>
+                <fullName>원격 조치</fullName>
+                <default>false</default>
+                <label>원격 조치</label>
+            </value>
+            <value>
+                <fullName>입고 수리</fullName>
+                <default>false</default>
+                <label>입고 수리</label>
+            </value>
+            <value>
+                <fullName>부품 교체</fullName>
+                <default>false</default>
+                <label>부품 교체</label>
+            </value>
+            <value>
+                <fullName>보상 처리</fullName>
+                <default>false</default>
+                <label>보상 처리</label>
+            </value>
+            <value>
+                <fullName>AI 자가 해결</fullName>
+                <default>false</default>
+                <label>AI 자가 해결</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

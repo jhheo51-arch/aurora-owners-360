@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Main_Part__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <label>주요 부품</label>
+    <referenceTo>Part__c</referenceTo>
+    <relationshipLabel>정비 이력</relationshipLabel>
+    <relationshipName>Service_Visits</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>한국 기본 (자동차관리법 제47조의2)</label>
+    <protected>false</protected>
+    <values>
+        <field>Claim_Window_Months__c</field>
+        <value xsi:type="xsd:double">24</value>
+    </values>
+    <values>
+        <field>Cumulative_Repair_Days__c</field>
+        <value xsi:type="xsd:double">30</value>
+    </values>
+    <values>
+        <field>Major_Defect_Repairs__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+    <values>
+        <field>Mileage_Limit_Km__c</field>
+        <value xsi:type="xsd:double">20000</value>
+    </values>
+    <values>
+        <field>Minor_Defect_Repairs__c</field>
+        <value xsi:type="xsd:double">3</value>
+    </values>
+    <values>
+        <field>Period_Months__c</field>
+        <value xsi:type="xsd:double">12</value>
+    </values>
+</CustomMetadata>

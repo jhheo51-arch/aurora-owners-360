@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>오로라 정비 이력 레코드 페이지(같은 차량 정비 이력)</comment>
+        <content>Aurora_Service_Visit_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>입고 정비 이력. 하자 수리는 레몬법·반복 결함 판정 대상(LemonLawEvaluator).</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>정비 이력</label>
+    <nameField>
+        <displayFormat>SV-{0000}</displayFormat>
+        <label>정비 번호</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+        <startingNumber>1</startingNumber>
+    </nameField>
+    <pluralLabel>정비 이력</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Vehicle__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Check_In_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Visit_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Defect_System__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Main_Part__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

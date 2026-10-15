@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Case</entityName>
+    <fieldName>VOC_Status__c</fieldName>
+    <masterLabel>오로라 VOC 상태</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>ContactId</fieldNames>
+        <fieldNames>Vehicle__c</fieldNames>
+        <fieldNames>VOC_Category__c</fieldNames>
+        <fieldNames>Priority</fieldNames>
+        <fieldNames>Advisor__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;해야 할 일&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;☐ 차주(연락처)와 고객 차량 연결&lt;/li&gt;&lt;li&gt;☐ VOC 유형·우선순위 확정 → 저장하면 응답 기한 자동 계산(안전 결함 2h / High 4h / Medium 24h / Low 48h)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;b&gt;다음 단계 조건&lt;/b&gt;: 차주와 차량이 모두 있어야 &apos;확인 중&apos;으로 이동할 수 있습니다.&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;color:#ba0517&quot;&gt;안전 결함 절차&lt;/b&gt;: 저장 즉시 상담팀장 이관 → 품질·안전 대응 담당 공유 → 차주에게 운행 자제 안내 → 대차 지원 검토&lt;/p&gt;</info>
+        <picklistValueName>접수</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>First_Response_At__c</fieldNames>
+        <fieldNames>Warranty_Scope__c</fieldNames>
+        <fieldNames>Warranty_Coverage__c</fieldNames>
+        <fieldNames>Needs_Manager__c</fieldNames>
+        <fieldNames>Assistance_Reason__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;해야 할 일&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;☐ 응답 기한 안에 차주에게 첫 응답하고 시각 기록 (기한이 지나도록 비어 있으면 저장 시 팀장 이관)&lt;/li&gt;&lt;li&gt;☐ 보증 구분 선택 — 충전·배터리 문제는 &apos;고전압 배터리&apos;(8년 보증)&lt;/li&gt;&lt;li&gt;☐ 기술 진단이 필요하면 EV 기술 상담(도하람), 정비 예약·대차는 서비스센터 협력(국하율)에 요청&lt;/li&gt;&lt;li&gt;☐ 혼자 판단하기 어려우면 &apos;팀장 도움 필요&apos; + 사유 입력&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>확인 중</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Pending_Approval_Count__c</fieldNames>
+        <fieldNames>Total_Compensation__c</fieldNames>
+        <fieldNames>Escalation_Status__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;해야 할 일&lt;/b&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;☐ 오른쪽 &apos;보상·조치&apos;에서 조치 등록(무상수리·보증 연장·대차 지원·포인트·충전 크레딧)&lt;/li&gt;&lt;li&gt;☐ 승인: 30만 원 미만 불필요 / 30만~100만 원 미만 상담팀장 이상 / 100만 원 이상·보증 연장 보상 심사(봉유진) 또는 고객케어센터장(육지안)&lt;/li&gt;&lt;li&gt;☐ 보상·조치 레코드의 [승인·반려] 버튼으로 처리, 반려는 의견 필수&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>조치 검토</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>SLA_Met__c</fieldNames>
+        <fieldNames>First_Response_At__c</fieldNames>
+        <info>&lt;p&gt;&lt;b&gt;종결 조건&lt;/b&gt;: 첫 응답 시각이 있고, 미승인 보상이 0건이어야 합니다.&lt;/p&gt;&lt;p&gt;종결하면 표준 상태가 Closed로 바뀌고, 이관 요청은 처리완료로 정리됩니다. 기한 준수 여부는 성과 지표에 쓰입니다.&lt;/p&gt;</info>
+        <picklistValueName>종결</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>

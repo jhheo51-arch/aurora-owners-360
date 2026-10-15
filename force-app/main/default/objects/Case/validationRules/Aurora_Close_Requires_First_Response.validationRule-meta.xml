@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_Close_Requires_First_Response</fullName>
+    <active>true</active>
+    <description>오로라 VOC: 첫 응답 없이 종결 불가 (PRD Q28 ①)</description>
+    <errorConditionFormula>AND(ISPICKVAL(VOC_Status__c, &quot;종결&quot;), ISBLANK(First_Response_At__c))</errorConditionFormula>
+    <errorDisplayField>First_Response_At__c</errorDisplayField>
+    <errorMessage>첫 응답 시각을 입력해야 종결할 수 있습니다.</errorMessage>
+</ValidationRule>

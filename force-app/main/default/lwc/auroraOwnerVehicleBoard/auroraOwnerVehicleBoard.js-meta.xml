@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>오로라 차주·차량</masterLabel>
+    <description>v4.4 '차주·차량' 통합 탭: 오로라 차주 검색·필터, 보유 차량 카드, 진행 중 VOC, 새 VOC</description>
+    <targets>
+        <target>lightning__AppPage</target>
+    </targets>
+</LightningComponentBundle>

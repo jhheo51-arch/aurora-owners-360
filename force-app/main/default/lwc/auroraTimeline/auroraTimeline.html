@@ -1,0 +1,42 @@
+<template>
+    <lightning-card title="통합 타임라인" icon-name="standard:timeline_event">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={hasBadges}>
+                <div class="slds-m-bottom_small">
+                    <template for:each={badges} for:item="badge">
+                        <lightning-badge key={badge} label={badge} class="slds-theme_error slds-m-right_x-small"></lightning-badge>
+                    </template>
+                </div>
+            </template>
+            <template lwc:if={error}>
+                <p class="slds-text-color_error">{error}</p>
+            </template>
+            <template lwc:if={hasEvents}>
+                <ul class="slds-timeline">
+                    <template for:each={events} for:item="item">
+                        <li key={item.key} class="slds-m-bottom_small">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+                                    <lightning-icon icon-name={item.icon} size="small" alternative-text={item.kind}></lightning-icon>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p>
+                                        <a data-id={item.recordId} onclick={open}>{item.title}</a>
+                                        <span class="slds-text-body_small slds-text-color_weak"> · {item.vehicle}</span>
+                                    </p>
+                                    <p class="slds-text-body_small">{item.detail}</p>
+                                    <p class="slds-text-body_small slds-text-color_weak">
+                                        <lightning-formatted-date-time value={item.eventDate}></lightning-formatted-date-time>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template lwc:else>
+                <p class="slds-text-color_weak">표시할 이력이 없습니다.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,9 @@
+<template>
+    <template lwc:if={hasBadges}>
+        <div class="wrap badges" aria-label="상태 배지">
+            <template for:each={badges} for:item="b">
+                <span key={b.key} class={b.cls}>{b.label}</span>
+            </template>
+        </div>
+    </template>
+</template>

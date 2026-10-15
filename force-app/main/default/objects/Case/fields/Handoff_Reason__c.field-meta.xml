@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Handoff_Reason__c</fullName>
+    <description>걸린 즉시 연결 규칙 코드와 설명(R1~R7, AI 안내 실패), 여러 개면 ' · '로 연결</description>
+    <label>상담사 연결 사유</label>
+    <length>255</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
