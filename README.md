@@ -274,7 +274,7 @@ sf org assign permset -n Aurora_Owners_360_User -o aurora
 ## 7. 품질, 제약, 알려진 한계
 
 **품질**
-- Apex 테스트 클래스 15개. 배포 때 `RunLocalTests`로 전부 실행합니다.
+- Apex 테스트 66개(테스트 클래스 15개) 모두 통과, 코드 커버리지 90.5%. 배포 때 `RunLocalTests`로 전부 실행합니다.
 - 버전마다 수용 테스트 시나리오(정상·정보 부족·예외)를 org에서 실행하고 결과를 [PRD](docs/PRD.md)에 기록했습니다.
 
 **Developer Edition 안에서 해결한 제약**
