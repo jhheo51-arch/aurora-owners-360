@@ -84,7 +84,7 @@ start_agent agent_router:
             go_to_lemon: @utils.transition to @subagent.lemon_check
             go_to_safety: @utils.transition to @subagent.safety_response
             go_to_work_query: @utils.transition to @subagent.work_query
-    description: "오로라 VOC 요약·정리 요청은 VOC 요약, 차주에게 보낼 답변·문자·회신 요청은 차주 답변 초안, 비슷한 사례·해결 방법·위키 요청은 유사 사례·위키, 레몬법·교환·환불·반복 결함 질문은 레몬법·반복 결함, 안전 결함 대응·팀장 이관·인계 요청은 안전 결함 대응, 진행 중·기한 임박·기한 초과·안전 결함 목록·이관 대기·리콜 경보처럼 여러 VOC를 묻는 업무 현황 질문은 업무 조회로 연결해 주세요. 특정 VOC·차량·차주를 말하면 어느 화면에 있든 해당 업무로 연결합니다. 인사만 하면 여섯 가지 업무를 짧게 안내해 주세요."
+    description: "오로라 VOC 요약·정리 요청은 VOC 요약, 차주에게 보낼 답변·문자·회신 요청은 차주 답변 초안, 비슷한 사례·해결 방법·위키 요청은 유사 사례·위키, 레몬법·교환·환불·반복 결함 질문은 레몬법·반복 결함, 안전 결함 대응·팀장 이관·인계 요청은 안전 결함 대응, 진행 중·기한 임박·기한 초과·안전 결함 목록·이관 대기·리콜 경보·리콜 미조치 차량·금융 만기 임박처럼 여러 건을 묻는 업무 현황 질문은 업무 조회로 연결해 주세요. 특정 VOC·차량·차주를 말하면 어느 화면에 있든 해당 업무로 연결합니다. 인사만 하면 여섯 가지 업무를 짧게 안내해 주세요."
 
 subagent voc_summary:
     label: "VOC 요약"
@@ -566,13 +566,13 @@ subagent safety_response:
 subagent work_query:
     label: "업무 조회"
     description: |
-        여러 오로라 VOC의 업무 현황을 목록으로 보여 줍니다. "진행 중 VOC 뭐 있어?", "기한 임박 VOC", "기한 지난 거", "안전 결함 진행 중", "이관 대기", "리콜 경보 있어?", "미나미 담당 VOC" 질문에 선택합니다. 어느 화면에서든 쓸 수 있습니다.
+        여러 오로라 VOC의 업무 현황을 목록으로 보여 줍니다. "진행 중 VOC 뭐 있어?", "기한 임박 VOC", "기한 지난 거", "안전 결함 진행 중", "이관 대기", "리콜 경보 있어?", "리콜 아직 안 고친 차", "만기 임박 고객", "재구매 상담 대상", "미나미 담당 VOC" 질문에 선택합니다. 어느 화면에서든 쓸 수 있습니다.
     reasoning:
         instructions: ->
-            |1\. 질문에 맞는 조회 구분을 골라 '업무 조회' 액션을 실행해 주세요: 진행 중 OPEN, 기한 임박·곧 기한 DUE_SOON, 기한 초과·지난 OVERDUE, 안전 결함 SAFETY, 팀장 이관 대기 ESCALATED, 리콜 경보 RECALL.
+            |1\. 질문에 맞는 조회 구분을 골라 '업무 조회' 액션을 실행해 주세요: 진행 중 OPEN, 기한 임박·곧 기한 DUE_SOON, 기한 초과·지난 OVERDUE, 안전 결함 SAFETY, 팀장 이관 대기 ESCALATED, 리콜 경보(안전 결함 VOC 조기 경보) RECALL, 리콜 미조치 차량(리콜 캠페인 대상인데 아직 조치 안 됨) RECALL_OPEN, 금융·리스 만기 임박·재구매 상담 대상 MATURING.
              2\. 특정 상담 직원 이름(예: 미나미)을 말하면 staffName에 넣고, 아니면 비워 두세요. 로그인 사용자는 상담 직원이 아니라서 내 VOC라고만 하면 전체를 보여 주고 직원 이름을 말하면 그 직원 것만 볼 수 있다고 덧붙여 주세요.
              3\. 결과를 그대로 보여 주고, 결과에 없는 VOC나 숫자를 만들지 마세요. 전화번호·이메일은 보여 주지 마세요.
-             4\. VOC 목록이면 한 건을 자세히 보려면 그 VOC 번호로 요약을 요청하라고 안내해 주세요. 리콜 경보는 요약 기능이 없으니 홈의 경보 띠나 리콜 경보 탭에서 확인하라고만 안내해 주세요.
+             4\. VOC 목록이면 한 건을 자세히 보려면 그 VOC 번호로 요약을 요청하라고 안내해 주세요. 리콜 경보는 요약 기능이 없으니 홈의 경보 띠나 리콜 경보 탭에서 확인하라고만 안내해 주세요. 리콜 미조치 차량은 리콜 캠페인 탭, 금융 만기는 홈의 재구매 상담 카드나 기회 탭에서 이어서 처리하라고 안내해 주세요.
         actions:
             aurora_work_query: @actions.aurora_work_query
                 with queryType = ...
@@ -581,12 +581,12 @@ subagent work_query:
     actions:
         aurora_work_query:
             label: "업무 조회"
-            description: "진행 중·기한 임박·기한 초과·안전 결함·이관 대기 VOC나 리콜 경보를 건수와 기한 순 최대 5건으로 보여 줍니다. 기록을 바꾸지 않습니다."
+            description: "진행 중·기한 임박·기한 초과·안전 결함·이관 대기 VOC, 리콜 경보, 리콜 미조치 차량, 금융 만기 90일 이내 계약을 건수와 최대 5건으로 보여 줍니다. 기록을 바꾸지 않습니다."
             target: "apex://AuroraWorkQueryAction"
             inputs:
                 queryType: string
                     label: "조회 구분"
-                    description: "OPEN, DUE_SOON, OVERDUE, SAFETY, ESCALATED, RECALL 중 하나"
+                    description: "OPEN, DUE_SOON, OVERDUE, SAFETY, ESCALATED, RECALL, RECALL_OPEN, MATURING 중 하나"
                     is_required: True
                 staffName: string
                     label: "직원 이름"

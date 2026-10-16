@@ -50,7 +50,7 @@
 
 ```
 구매·출고 ──▶ 보유·정비 ──▶ [문제·VOC] ──▶ 보상·해결 ──▶ 재구매·추천
-   v3            v3          v1 출발점         v2·v3          v5 예정
+   v3            v3          v1 출발점         v2·v3            v5
                              v4 AI·리콜
                              v4.1~v4.4 AI 상담·알림
 ```
@@ -79,7 +79,8 @@
 | v4.4 | 현장 피드백 반영 | 부품 공급사·담당자, '차주·차량' 통합 탭, 업무 알림(이관·승인·기한·AI 연결), 과거 해결 사례 기반 AI 해결 가이드(RAG) |
 | v4.2 | 어디서든 쓰는 Agent | VOC 번호·번호판·차주 이름으로 대상 찾기, 진행 중·기한 임박·안전 결함 등 업무 조회 |
 | v4.5 | 공개 준비 | 가상 인물 이름 정리, 담당자를 이름 대신 역할로 조회, 중복 규칙 공용화, 시연 데이터 정리 |
-| v5·v6 예정 | 재구매·성과 | 리콜 캠페인, 재구매 상담, 대시보드, 고장 히트맵 |
+| v5 | 리텐션·재구매 | 서비스센터·딜러 네트워크와 혼잡도, 차량 단위 리콜 캠페인, 금융·리스 만기 → 재구매 상담(표준 Opportunity) 자동 생성, 고객 건강 점수·CSAT |
+| v6 예정 | 성과·시각화 | 대시보드, 고장 히트맵 |
 
 ---
 
@@ -96,14 +97,14 @@ flowchart LR
     subgraph Rules["규칙 (판단)"]
         Flow["Flow<br/>기한·이관·승인·기한 알림"]
         VR["유효성 규칙<br/>종결 조건·안전 결함 잠금"]
-        Apex["Apex 서비스<br/>보증·레몬법·위험 점수·리콜·라우팅"]
-        CMDT["커스텀 메타데이터<br/>레몬법·리콜·AI 상담 기준"]
+        Apex["Apex 서비스<br/>보증·레몬법·위험·건강 점수·리콜·재구매·라우팅"]
+        CMDT["커스텀 메타데이터<br/>레몬법·리콜·AI 상담·건강 점수 기준"]
     end
     subgraph AI["AI (정리·초안)"]
         PT["Prompt Template 5개<br/>Claude Sonnet 4.6"]
         Act["Agent 액션 = Apex<br/>찾기·조회·유사 사례·판정"]
     end
-    Data[("데이터<br/>Case·Contact·Account<br/>+ 커스텀 오브젝트 11개")]
+    Data[("데이터<br/>Case·Contact·Account·Opportunity<br/>+ 커스텀 오브젝트 14개")]
     Home & Rec --> Flow & Apex
     Chat --> Apex
     Panel --> Act --> Apex
@@ -114,7 +115,7 @@ flowchart LR
 
 AI는 규칙이 판단한 결과와 레코드 값만 받아 문장을 만듭니다. 판정·이관·승인·종결은 Flow·Apex·유효성 규칙이 하고, Agent에는 이런 변경 액션이 없습니다.
 
-신규 커스텀 오브젝트 11개 + 표준 오브젝트 3개(Contact 차주·공급사 담당자, Account 가구·법인·공급사, Case VOC)
+신규 커스텀 오브젝트 14개 + 표준 오브젝트 4개(Contact 차주·공급사 담당자, Account 가구·법인·공급사·서비스센터·딜러, Case VOC, Opportunity 재구매 상담)
 
 ```mermaid
 erDiagram
@@ -138,6 +139,13 @@ erDiagram
     Care_Staff__c ||--o{ Case : "상담원·팀장·현재 처리"
     Care_Staff__c ||--o{ Compensation__c : "승인자"
     Care_Staff__c ||--o{ Care_Staff__c : "상위 직원"
+    Account ||--o{ Vehicle__c : "담당 서비스센터·판매 딜러"
+    Recall_Alert__c ||--o{ Recall_Campaign__c : "경보 → 캠페인"
+    Recall_Campaign__c ||--|{ Recall_Vehicle__c : "M-D 대상 차량"
+    Vehicle__c ||--o{ Recall_Vehicle__c : "리콜 대상"
+    Vehicle__c ||--o{ Finance_Contract__c : "금융·리스 계약"
+    Finance_Contract__c ||--o{ Opportunity : "만기 → 재구매 상담"
+    Vehicle__c ||--o{ Opportunity : "재구매 상담"
 ```
 
 ### 설계에서 고민한 결정
@@ -199,7 +207,7 @@ VOC에 연결된 의심 부품(전자식 브레이크 부스터)이 차량 3D �
 ### ④ 차주·차량 보드
 ![차주·차량](docs/screenshots/v4.5/07-owners-vehicles.jpg)
 
-차주를 위험 점수 순으로 보고 위험 높음·레몬법 주의·진행 중 VOC·보증 만료 임박으로 거릅니다.
+차주를 위험 점수 순으로 보고 위험 높음·레몬법 주의·진행 중 VOC·보증 만료 임박으로 거릅니다. v5부터는 고객 건강 점수 칩과 차량 배지(리콜 미조치·금융 만기 D-n·재구매 상담)가 붙고, 건강 주의·리콜 미조치·금융 만기로도 거릅니다(캡처는 v4.5 기준).
 
 ### ⑤ 보상 2단계 승인
 ![보상 승인](docs/screenshots/v4.5/09-compensation-approval.jpg)
@@ -258,6 +266,15 @@ python -X utf8 scripts/load-v3-links.py --target-org aurora       # 소유 관�
 sf data upsert bulk -s Account -f data/v4.4/suppliers.csv -i Aurora_Key__c --line-ending LF -o aurora
 sf data upsert bulk -s Contact -f data/v4.4/supplier-contacts.csv -i Aurora_Key__c --line-ending LF -o aurora
 sf data upsert bulk -s Part__c -f data/v4.4/parts-suppliers.csv -i Part_Number__c --line-ending LF -o aurora
+# v5: 서비스센터·딜러 → 차량·정비 연결 → 리콜 캠페인 → 금융·리스 계약
+sf data upsert bulk -s Account -f data/v5/network.csv -i Aurora_Key__c --line-ending LF -o aurora
+sf data upsert bulk -s Vehicle__c -f data/v5/vehicles-network.csv -i VIN__c --line-ending LF -o aurora
+sf data upsert bulk -s Service_Visit__c -f data/v5/visits-network.csv -i Visit_Key__c --line-ending LF -o aurora
+sf data upsert bulk -s Recall_Campaign__c -f data/v5/recall-campaigns.csv -i Campaign_Key__c --line-ending LF -o aurora
+sf data upsert bulk -s Recall_Vehicle__c -f data/v5/recall-vehicles.csv -i Target_Key__c --line-ending LF -o aurora
+sf data upsert bulk -s Finance_Contract__c -f data/v5/finance-contracts.csv -i Contract_Key__c --line-ending LF -o aurora
+sf data upsert bulk -s Case -f data/v5/case-csat.csv -i VOC_Key__c --line-ending LF -o aurora
+sf apex run -f scripts/apex/v5-init.apex -o aurora                # 재구매 상담 생성 + 차주 위험·건강 점수 계산
 
 # 4. Agent 게시·활성화
 sf agent publish authoring-bundle -n Aurora_Care_Copilot -o aurora
@@ -274,7 +291,7 @@ sf org assign permset -n Aurora_Owners_360_User -o aurora
 ## 7. 품질, 제약, 알려진 한계
 
 **품질**
-- Apex 테스트 66개(테스트 클래스 15개) 모두 통과, 코드 커버리지 90.5%. 배포 때 `RunLocalTests`로 전부 실행합니다.
+- Apex 테스트 82개(테스트 클래스 22개) 모두 통과, 코드 커버리지 91.8%. 배포 때 `RunLocalTests`로 전부 실행합니다.
 - 버전마다 수용 테스트 시나리오(정상·정보 부족·예외)를 org에서 실행하고 결과를 [PRD](docs/PRD.md)에 기록했습니다.
 
 **Developer Edition 안에서 해결한 제약**
@@ -282,6 +299,7 @@ sf org assign permset -n Aurora_Owners_360_User -o aurora
 - Salesforce Knowledge는 한 번 켜면 끌 수 없는 설정이라 고장 위키를 커스텀 오브젝트로 만들었습니다.
 - 사용자 라이선스가 2개라 직원은 레코드로 두고, 알림은 레코드 소유자(로그인 사용자)가 대신 받습니다. 실제 회사라면 직원에 사용자 계정을 연결해 받는 사람만 바꾸면 됩니다.
 - 예약 Flow는 매시간 주기가 없어서, 기한 알림은 기록 트리거 Flow의 예약 경로(기한 1시간 전·기한 시각)로 구현했습니다.
+- 재구매 상담은 표준 Opportunity를 재사용하되 org 공용 단계·레이아웃은 바꾸지 않고, 오로라 앱 전용 레코드 페이지·리스트 뷰만 붙였습니다. 차량 일반 보증 만료일은 수식 필드라 예약 경로 기준이 될 수 없어, 보증 만료 쪽은 매일 1회 점검하는 예약 Flow로 만들었습니다.
 - 같은 환경의 다른 앱을 보호하려고 레코드 페이지·홈·로고는 이 앱에만 할당했고, 공용 페이지 레이아웃은 건드리지 않고 LWC로 대신했습니다.
 
 **알려진 한계**

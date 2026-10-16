@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer__c</fullName>
+    <label>고객</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>금융·리스 계약</relationshipLabel>
+    <relationshipName>Finance_Contracts</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

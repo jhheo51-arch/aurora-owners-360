@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recommended_Model__c</fullName>
+    <description>자동 생성 시 현재 차종이 기본값. 상담원이 상담 후 변경</description>
+    <label>추천 모델</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Vehicle_Model__c</referenceTo>
+    <relationshipLabel>추천 재구매 상담</relationshipLabel>
+    <relationshipName>Recommended_Opportunities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

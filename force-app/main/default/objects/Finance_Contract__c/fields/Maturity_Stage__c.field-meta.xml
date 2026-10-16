@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Maturity_Stage__c</fullName>
+    <description>재구매 상담 대상 표시(만기 90일 이내)</description>
+    <label>만기 단계</label>
+    <formula>IF(TEXT(Status__c) &lt;&gt; '진행', '⏹ ' &amp; TEXT(Status__c),
+IF(ISBLANK(End_Date__c), '–',
+IF(End_Date__c &lt; TODAY(), '⏱ 만기 지남',
+IF(End_Date__c - TODAY() &lt;= 90, '⏳ 만기 90일 이내', '✓ 진행'))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

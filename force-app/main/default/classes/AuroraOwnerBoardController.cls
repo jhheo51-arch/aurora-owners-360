@@ -2,6 +2,7 @@
  * v4.4 P-2 '차주·차량' 통합 탭(docs/design/v4.4-feedback.md F2). 오로라 차주와 보유 차량·진행 중 VOC를 한 목록으로.
  * 오로라 차주 = 연락처 구분 '차주' 또는 이메일 @aurora.example.com(실습 연락처·공급사 담당자는 제외).
  * 검색: 이름·전화·번호판·차량 번호(VEH-) / 필터: 위험 높음·레몬법 주의 이상·진행 중 VOC·보증 만료 임박(90일).
+ * v5 S-6: 고객 건강 점수, 차량별 리콜 미조치·금융 만기(90일 이내)·열린 재구매 상담, 필터 건강 주의·리콜 미조치·금융 만기.
  */
 public with sharing class AuroraOwnerBoardController {
     static final Integer EXPIRING_DAYS = 90;
@@ -28,6 +29,9 @@ public with sharing class AuroraOwnerBoardController {
         @AuraEnabled public Integer validWarranties = 0;
         @AuraEnabled public String nextWarrantyEnd;   // 가장 먼저 끝나는 유효 보증 '종류 YYYY-MM-DD'
         @AuraEnabled public Boolean warrantyExpiring = false;
+        @AuraEnabled public String recallOpen;        // v5: 미조치 리콜 'RC-0001 입고 예약'
+        @AuraEnabled public Integer maturityDays;     // v5: 진행 중 금융 계약 만기까지 일수(90일 이내일 때만)
+        @AuraEnabled public String repurchaseStage;   // v5: 열린 재구매 상담 단계
     }
 
     public class OwnerRow {
@@ -41,6 +45,11 @@ public with sharing class AuroraOwnerBoardController {
         @AuraEnabled public List<VocLine> openVocs = new List<VocLine>();
         @AuraEnabled public Boolean lemonFlag = false;
         @AuraEnabled public Boolean expiringFlag = false;
+        @AuraEnabled public Decimal healthScore;
+        @AuraEnabled public String healthGrade;
+        @AuraEnabled public String healthBasis;
+        @AuraEnabled public Boolean recallFlag = false;
+        @AuraEnabled public Boolean maturingFlag = false;
     }
 
     @AuraEnabled(cacheable=false)
@@ -48,7 +57,8 @@ public with sharing class AuroraOwnerBoardController {
         Set<String> f = filters == null ? new Set<String>() : new Set<String>(filters);
         String t = term == null ? '' : term.trim();
 
-        List<Contact> owners = [SELECT Id, Name, Phone, Customer_Grade__c, Risk_Level__c, Risk_Score__c
+        List<Contact> owners = [SELECT Id, Name, Phone, Customer_Grade__c, Risk_Level__c, Risk_Score__c,
+                                       Health_Score__c, Health_Grade__c, Health_Basis__c
                                 FROM Contact
                                 WHERE Contact_Role__c = '차주' OR Email LIKE '%@aurora.example.com'
                                 ORDER BY Risk_Score__c DESC NULLS LAST, Name];
@@ -61,9 +71,13 @@ public with sharing class AuroraOwnerBoardController {
             r.grade = c.Customer_Grade__c;
             r.risk = c.Risk_Level__c;
             r.riskScore = c.Risk_Score__c;
+            r.healthScore = c.Health_Score__c;
+            r.healthGrade = c.Health_Grade__c;
+            r.healthBasis = c.Health_Basis__c;
             rows.put(c.Id, r);
         }
         Date today = Date.today();
+        Map<Id, VehicleCard> cards = new Map<Id, VehicleCard>();
         for (Vehicle__c v : [SELECT Id, Name, Plate_Number__c, Vehicle_Model__r.Name, Model__c, Mileage__c, Owner_Contact__c,
                                     Lemon_Law_Status__c, Repeat_Defect__c, Repeat_Defect_System__c,
                                     (SELECT Warranty_Type__c, End_Date__c, Status__c FROM Warranties__r ORDER BY End_Date__c)
@@ -87,11 +101,13 @@ public with sharing class AuroraOwnerBoardController {
                     card.warrantyExpiring = w.End_Date__c <= today.addDays(EXPIRING_DAYS);
                 }
             }
+            cards.put(v.Id, card);
             OwnerRow r = rows.get(v.Owner_Contact__c);
             r.vehicles.add(card);
             r.lemonFlag = r.lemonFlag || v.Lemon_Law_Status__c == '주의' || v.Lemon_Law_Status__c == '대상 가능';
             r.expiringFlag = r.expiringFlag || card.warrantyExpiring;
         }
+        addRetention(cards, rows, today);
         for (Case c : [SELECT Id, CaseNumber, Subject, VOC_Status__c, VOC_Category__c, ContactId FROM Case
                        WHERE ContactId IN :rows.keySet() AND VOC_Status__c != null AND VOC_Status__c != '종결'
                        AND AI_Outcome__c != :AI_INFO ORDER BY CreatedDate DESC]) {
@@ -112,6 +128,39 @@ public with sharing class AuroraOwnerBoardController {
             }
         }
         return out;
+    }
+
+    /** v5: 리콜 미조치·금융 만기 90일 이내·열린 재구매 상담을 차량 카드와 차주 플래그에 */
+    static void addRetention(Map<Id, VehicleCard> cards, Map<Id, OwnerRow> rows, Date today) {
+        Map<Id, OwnerRow> ownerOf = new Map<Id, OwnerRow>();
+        for (OwnerRow r : rows.values()) {
+            for (VehicleCard v : r.vehicles) {
+                ownerOf.put(v.id, r);
+            }
+        }
+        for (Recall_Vehicle__c rv : [SELECT Vehicle__c, Status__c, Campaign__r.Name FROM Recall_Vehicle__c
+                                     WHERE Vehicle__c IN :cards.keySet() AND Status__c NOT IN ('조치 완료', '제외')
+                                     AND Campaign__r.Status__c != '완료' ORDER BY Campaign__r.Name]) {
+            VehicleCard v = cards.get(rv.Vehicle__c);
+            if (v.recallOpen == null) {
+                v.recallOpen = rv.Campaign__r.Name + ' ' + rv.Status__c;
+                ownerOf.get(v.id).recallFlag = true;
+            }
+        }
+        Date until = today.addDays(EXPIRING_DAYS);
+        for (Finance_Contract__c f : [SELECT Vehicle__c, End_Date__c FROM Finance_Contract__c
+                                      WHERE Vehicle__c IN :cards.keySet() AND Status__c = '진행'
+                                      AND End_Date__c >= :today AND End_Date__c <= :until ORDER BY End_Date__c]) {
+            VehicleCard v = cards.get(f.Vehicle__c);
+            if (v.maturityDays == null) {
+                v.maturityDays = today.daysBetween(f.End_Date__c);
+                ownerOf.get(v.id).maturingFlag = true;
+            }
+        }
+        for (Opportunity o : [SELECT Vehicle__c, StageName FROM Opportunity WHERE Vehicle__c IN :cards.keySet()
+                              AND Aurora_Type__c = :RepurchaseService.AURORA_TYPE AND IsClosed = false]) {
+            cards.get(o.Vehicle__c).repurchaseStage = o.StageName;
+        }
     }
 
     @TestVisible
@@ -147,6 +196,15 @@ public with sharing class AuroraOwnerBoardController {
             return false;
         }
         if (f.contains('expiring') && !r.expiringFlag) {
+            return false;
+        }
+        if (f.contains('health') && r.healthGrade != CustomerHealthService.GRADE_WATCH) {
+            return false;
+        }
+        if (f.contains('recall') && !r.recallFlag) {
+            return false;
+        }
+        if (f.contains('maturing') && !r.maturingFlag) {
             return false;
         }
         return true;

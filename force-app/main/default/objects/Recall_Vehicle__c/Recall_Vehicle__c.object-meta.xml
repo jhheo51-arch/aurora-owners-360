@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>리콜 캠페인의 차량별 이행 상태(v5): 미통지 → 통지 → 입고 예약 → 조치 완료 (+ 제외). 정비 이력 완료 시 조치 완료로 바뀐다.</description>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <label>리콜 대상 차량</label>
+    <nameField>
+        <displayFormat>RV-{0000}</displayFormat>
+        <label>번호</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+        <startingNumber>1</startingNumber>
+    </nameField>
+    <pluralLabel>리콜 대상 차량</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

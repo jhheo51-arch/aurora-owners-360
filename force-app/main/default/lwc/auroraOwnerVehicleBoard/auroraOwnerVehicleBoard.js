@@ -9,9 +9,14 @@ const FILTERS = [
     { key: 'risk', label: '⚠ 위험 높음' },
     { key: 'lemon', label: '⚖ 레몬법 주의 이상' },
     { key: 'openVoc', label: '● 진행 중 VOC 있음' },
-    { key: 'expiring', label: '⏳ 보증 만료 임박(90일)' }
+    { key: 'expiring', label: '⏳ 보증 만료 임박(90일)' },
+    // v5 S-6 리텐션
+    { key: 'health', label: '♡ 건강 주의' },
+    { key: 'recall', label: '🔧 리콜 미조치' },
+    { key: 'maturing', label: '💳 금융 만기(90일)' }
 ];
 const RISK = { 높음: ['danger', '⚠ 위험 높음'], 주의: ['warn', '△ 위험 주의'], 낮음: ['ok', '✓ 위험 낮음'] };
+const HEALTH = { 좋음: ['ok', '♥'], 보통: ['warn', '♡'], 주의: ['danger', '♡'] };
 
 export default class AuroraOwnerVehicleBoard extends NavigationMixin(LightningElement) {
     term = '';
@@ -66,6 +71,7 @@ export default class AuroraOwnerVehicleBoard extends NavigationMixin(LightningEl
             rowCls: `ob-row tone-${tone}`,
             riskCls: `ob-badge ${tone}`,
             riskLabel: `${riskLabel}${r.riskScore != null ? ' · ' + r.riskScore + '점' : ''}`,
+            ...this.health(r),
             vocCount: vocs.length,
             vocLabel: vocs.length ? `진행 중 VOC ${vocs.length}건` : '진행 중 VOC 없음',
             vehicleLabel: `보유 차량 ${r.vehicles.length}대`,
@@ -75,12 +81,30 @@ export default class AuroraOwnerVehicleBoard extends NavigationMixin(LightningEl
         };
     }
 
+    // v5 S-6: 고객 건강 점수 칩(근거는 title로)
+    health(r) {
+        if (r.healthScore == null) {
+            return { hasHealth: false };
+        }
+        const [tone, mark] = HEALTH[r.healthGrade] || ['done', '♡'];
+        return {
+            hasHealth: true,
+            healthCls: `ob-badge ${tone}`,
+            healthLabel: `${mark} 건강 ${r.healthScore} · ${r.healthGrade}`,
+            healthTitle: r.healthBasis ? `건강 점수 근거: ${r.healthBasis}` : '건강 점수'
+        };
+    }
+
     vehicle(v, owner) {
         const badges = [];
         if (v.lemon === '대상 가능') badges.push({ k: 'l', cls: 'ob-badge danger', text: '⚖ 레몬법 대상 가능' });
         else if (v.lemon === '주의') badges.push({ k: 'l', cls: 'ob-badge warn', text: '⚖ 레몬법 주의' });
         if (v.repeatDefect) badges.push({ k: 'r', cls: 'ob-badge warn', text: `↻ 반복 결함${v.repeatSystem ? '(' + v.repeatSystem + ')' : ''}` });
         if (v.warrantyExpiring) badges.push({ k: 'w', cls: 'ob-badge warn', text: '⏳ 보증 만료 임박' });
+        // v5: 리콜 미조치 · 금융 만기 · 재구매 상담
+        if (v.recallOpen) badges.push({ k: 'rc', cls: 'ob-badge danger', text: `🔧 리콜 미조치 · ${v.recallOpen}` });
+        if (v.maturityDays != null) badges.push({ k: 'fc', cls: 'ob-badge warn', text: `💳 금융 만기 D-${v.maturityDays}` });
+        if (v.repurchaseStage) badges.push({ k: 'op', cls: 'ob-badge ok', text: `🤝 재구매 상담 ${v.repurchaseStage}` });
         if (!badges.length) badges.push({ k: 'n', cls: 'ob-badge ok', text: '✓ 품질 신호 없음' });
         return {
             ...v,

@@ -1,0 +1,3 @@
+Target_Key__c,Campaign__r.Campaign_Key__c,Vehicle__r.VIN__c,Status__c,Notified_Date__c,Reserved_Date__c,Service_Center__r.Aurora_Key__c
+RC-K1|KAURNLSV0PA000303,RC-K1,KAURNLSV0PA000303,입고 예약,2026-10-15,2026-10-20,SC-PG
+RC-K1|KAURNLSV0PA000909,RC-K1,KAURNLSV0PA000909,미통지,,,SC-HU

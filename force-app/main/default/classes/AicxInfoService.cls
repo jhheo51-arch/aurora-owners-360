@@ -139,7 +139,10 @@ public with sharing class AicxInfoService {
         } else {
             text += '\n→ 기간 기준으로 약 ' + Date.today().daysBetween(dueDate) + '일 남았습니다.';
         }
-        if (String.isNotBlank(v.Service_Center__c)) {
+        // v5: 담당 서비스센터(Account)가 있으면 그 이름, 없으면 예전 선택 목록 값
+        if (v.Preferred_Center__r != null) {
+            text += '\n관리 서비스센터: ' + v.Preferred_Center__r.Name;
+        } else if (String.isNotBlank(v.Service_Center__c)) {
             text += '\n관리 서비스센터: ' + v.Service_Center__c + ' 서비스센터';
         }
         text += '\n(점검 주기는 오로라 가상 기준입니다)';
@@ -245,7 +248,7 @@ public with sharing class AicxInfoService {
         if (vehicleId == null) {
             return null;
         }
-        List<Vehicle__c> vs = [SELECT Name, Model__c, Model_Year__c, Delivery_Date__c, Mileage__c, Service_Center__c,
+        List<Vehicle__c> vs = [SELECT Name, Model__c, Model_Year__c, Delivery_Date__c, Mileage__c, Service_Center__c, Preferred_Center__r.Name,
                                       Vehicle_Model__r.Name, Vehicle_Model__r.Model_Line__c, Vehicle_Model__r.Battery_Capacity_kWh__c,
                                       Vehicle_Model__r.Maintenance_Interval_Months__c, Vehicle_Model__r.Maintenance_Interval_Km__c
                                FROM Vehicle__c WHERE Id = :vehicleId];

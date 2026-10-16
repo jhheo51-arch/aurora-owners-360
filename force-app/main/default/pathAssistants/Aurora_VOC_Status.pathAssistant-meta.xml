@@ -32,7 +32,7 @@
     <pathAssistantSteps>
         <fieldNames>SLA_Met__c</fieldNames>
         <fieldNames>First_Response_At__c</fieldNames>
-        <info>&lt;p&gt;&lt;b&gt;종결 조건&lt;/b&gt;: 첫 응답 시각이 있고, 미승인 보상이 0건이어야 합니다.&lt;/p&gt;&lt;p&gt;종결하면 표준 상태가 Closed로 바뀌고, 이관 요청은 처리완료로 정리됩니다. 기한 준수 여부는 성과 지표에 쓰입니다.&lt;/p&gt;</info>
+        <info>&lt;p&gt;&lt;b&gt;종결 조건&lt;/b&gt;: 첫 응답 시각이 있고, 미승인 보상이 0건이어야 합니다.&lt;/p&gt;&lt;p&gt;종결하면 표준 상태가 Closed로 바뀌고, 이관 요청은 처리완료로 정리됩니다. 기한 준수 여부는 성과 지표에 쓰입니다.&lt;/p&gt;&lt;p&gt;(선택) 종결 통화에서 받은 만족도 1~5점을 처리 탭 &apos;④ 종결 만족도&apos;에 입력하면 고객 건강 점수에 반영됩니다.&lt;/p&gt;</info>
         <picklistValueName>종결</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>__MASTER__</recordTypeName>

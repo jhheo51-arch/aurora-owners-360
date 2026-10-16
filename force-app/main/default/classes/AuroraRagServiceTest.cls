@@ -51,11 +51,27 @@ private class AuroraRagServiceTest {
 
     @IsTest
     static void retrievalAccuracyFiveQueries() {
-        System.assert(inTop(openCase('완속 충전이 또 안 돼요', '충전·배터리'), 'RAG-1'), '충전');
-        System.assert(inTop(openCase('브레이크 경고등이 떴어요', '품질 결함'), 'RAG-2'), '제동');
-        System.assert(inTop(openCase('앱에서 원격 공조가 안 돼요', '커넥티드카 앱'), 'RAG-3'), '원격 공조');
-        System.assert(inTop(openCase('에어컨 켜면 냄새가 나요', '품질 결함'), 'RAG-4'), '공조');
-        System.assert(inTop(openCase('후방 카메라가 깜빡여요', '품질 결함'), 'RAG-5'), '카메라');
+        // 질문 VOC 5건은 한 번에 저장(건별 저장은 트리거 연쇄로 SOQL 한도에 닿음)
+        Contact o = [SELECT Id FROM Contact WHERE LastName = '근거차주'];
+        Vehicle__c v = [SELECT Id FROM Vehicle__c WHERE VIN__c = 'TESTRAG00000001'];
+        Care_Staff__c adv = [SELECT Id, Manager__c FROM Care_Staff__c WHERE Name = '미나미'];
+        List<List<String>> qs = new List<List<String>>{
+            new List<String>{ '완속 충전이 또 안 돼요', '충전·배터리', 'RAG-1' },
+            new List<String>{ '브레이크 경고등이 떴어요', '품질 결함', 'RAG-2' },
+            new List<String>{ '앱에서 원격 공조가 안 돼요', '커넥티드카 앱', 'RAG-3' },
+            new List<String>{ '에어컨 켜면 냄새가 나요', '품질 결함', 'RAG-4' },
+            new List<String>{ '후방 카메라가 깜빡여요', '품질 결함', 'RAG-5' } };
+        List<Case> open = new List<Case>();
+        for (List<String> q : qs) {
+            open.add(new Case(Subject = q[0], ContactId = o.Id, Vehicle__c = v.Id, Advisor__c = adv.Id, Manager_Employee__c = adv.Manager__c,
+                VOC_Category__c = q[1], VOC_Status__c = '접수'));
+        }
+        insert open;
+        Test.startTest();
+        for (Integer i = 0; i < qs.size(); i++) {
+            System.assert(inTop(open[i].Id, qs[i][2]), qs[i][0]);
+        }
+        Test.stopTest();
     }
 
     @IsTest

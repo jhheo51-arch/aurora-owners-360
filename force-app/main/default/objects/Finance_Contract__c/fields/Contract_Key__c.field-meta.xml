@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Key__c</fullName>
+    <description>샘플 적재용 외부 ID(예: FC-K1)</description>
+    <label>계약 키</label>
+    <caseSensitive>false</caseSensitive>
+    <externalId>true</externalId>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

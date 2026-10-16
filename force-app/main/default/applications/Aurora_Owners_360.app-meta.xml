@@ -36,6 +36,15 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Contact</pageOrSobjectType>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>오로라 앱에서만 재구매 상담 레코드 페이지 사용(org 공용 Opportunity 페이지는 그대로)</comment>
+        <content>Aurora_Repurchase_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Opportunity</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#0B3D91</headerColor>
         <logo>AuroraSymbol</logo>
@@ -58,6 +67,9 @@
     <tabs>Service_Visit__c</tabs>
     <tabs>Failure_Mode__c</tabs>
     <tabs>Recall_Alert__c</tabs>
+    <tabs>Recall_Campaign__c</tabs>
+    <tabs>Finance_Contract__c</tabs>
+    <tabs>standard-Opportunity</tabs>
     <tabs>Aurora_AI_Care_Demo</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

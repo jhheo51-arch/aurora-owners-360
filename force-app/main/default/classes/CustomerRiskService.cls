@@ -66,6 +66,8 @@ public with sharing class CustomerRiskService {
                 + (riskyVehicle.contains(c.Id) ? 25 : 0);
             updates.add(new Contact(Id = c.Id, VOC_Count_90d__c = count, Risk_Score__c = Math.min(score, 100)));
         }
+        // v5: 같은 저장에서 고객 건강 점수도 채운다(위험 점수를 입력으로 씀)
+        CustomerHealthService.apply(updates);
         update updates;
     }
 }

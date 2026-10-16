@@ -5,4 +5,8 @@ trigger ServiceVisitTrigger on Service_Visit__c (after insert, after update, aft
     }
     LemonLawEvaluator.evaluate(vehicleIds);
     CustomerRiskService.recalculateForVehicles(vehicleIds);
+    // v5: 리콜 조치 정비가 완료되면 대상 차량을 '조치 완료'로
+    if (!Trigger.isDelete) {
+        RecallCampaignService.onVisits(Trigger.new);
+    }
 }

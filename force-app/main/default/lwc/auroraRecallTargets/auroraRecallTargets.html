@@ -1,0 +1,22 @@
+<template>
+    <lightning-quick-action-panel header="대상 차량 생성">
+        <template lwc:if={info}>
+            <template lwc:if={info.ok}>
+                <p class="slds-m-bottom_small"><b>조건</b> {info.condition}</p>
+                <p>조건에 맞는 차량 <b>{info.matched}대</b> · 이미 대상 {info.existing}대</p>
+                <p class="slds-text-color_weak slds-m-top_small">{info.message}</p>
+                <p class="slds-text-color_weak slds-m-top_x-small">대상 차량은 '미통지'로 만들고, 조치 서비스센터는 차량의 담당 서비스센터로 채웁니다.</p>
+            </template>
+            <template lwc:else>
+                <p>{info.message}</p>
+            </template>
+        </template>
+        <template lwc:else>
+            <lightning-spinner alternative-text="조건 확인 중" size="small"></lightning-spinner>
+        </template>
+        <div slot="footer">
+            <lightning-button label="취소" onclick={close}></lightning-button>
+            <lightning-button class="slds-m-left_x-small" variant="brand" label="대상 차량 생성" disabled={cannotCreate} onclick={create}></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

@@ -28,6 +28,9 @@
                             <span class="ob-muted">{r.phone} · 등급 {r.grade}</span>
                         </div>
                         <span class={r.riskCls}>{r.riskLabel}</span>
+                        <template lwc:if={r.hasHealth}>
+                            <span class={r.healthCls} title={r.healthTitle}>{r.healthLabel}</span>
+                        </template>
                         <span class="ob-muted">{r.vehicleLabel}</span>
                         <span class="ob-muted">{r.vocLabel}</span>
                     </div>

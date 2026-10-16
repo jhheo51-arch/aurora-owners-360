@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Aurora_CSAT_Range</fullName>
+    <active>true</active>
+    <description>v5 S-5: 만족도(CSAT)는 비우거나 1~5. 고객 건강 점수에 반영된다.</description>
+    <errorConditionFormula>AND(NOT(ISBLANK(CSAT__c)), OR(CSAT__c &lt; 1, CSAT__c &gt; 5))</errorConditionFormula>
+    <errorDisplayField>CSAT__c</errorDisplayField>
+    <errorMessage>만족도(CSAT)는 1~5점으로 입력하세요(모르면 비워 두세요).</errorMessage>
+</ValidationRule>

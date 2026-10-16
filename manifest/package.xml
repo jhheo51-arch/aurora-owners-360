@@ -4,6 +4,7 @@
         <members>Lemon_Law_Rule.KR_Default</members>
         <members>Recall_Rule.KR_Default</members>
         <members>Aicx_Rule.KR_Default</members>
+        <members>Health_Rule.KR_Default</members>
         <name>CustomMetadata</name>
     </types>
     <types>
@@ -17,6 +18,8 @@
     <types>
         <members>Account.Aurora_Key__c</members>
         <members>Account.Customer_Segment__c</members>
+        <members>Account.Region__c</members>
+        <members>Account.Daily_Capacity__c</members>
         <members>Contact.Aurora_Key__c</members>
         <members>Contact.Contact_Role__c</members>
         <members>Case.Advisor__c</members>
@@ -61,6 +64,23 @@
         <members>Case.AI_Wiki__c</members>
         <members>Case.CSAT__c</members>
         <members>Case.Handoff_Reason__c</members>
+        <members>Opportunity.Aurora_Type__c</members>
+        <members>Opportunity.Trigger_Reason__c</members>
+        <members>Opportunity.Customer_Contact__c</members>
+        <members>Opportunity.Vehicle__c</members>
+        <members>Opportunity.Finance_Contract__c</members>
+        <members>Opportunity.Recommended_Model__c</members>
+        <members>Contact.Health_Score__c</members>
+        <members>Contact.Health_Grade__c</members>
+        <members>Contact.Health_Basis__c</members>
+        <members>Health_Rule__mdt.Risk_Weight__c</members>
+        <members>Health_Rule__mdt.Low_CSAT_Max__c</members>
+        <members>Health_Rule__mdt.Low_CSAT_Penalty__c</members>
+        <members>Health_Rule__mdt.Recall_Penalty__c</members>
+        <members>Health_Rule__mdt.Lemon_Penalty__c</members>
+        <members>Health_Rule__mdt.Open_VOC_Penalty__c</members>
+        <members>Health_Rule__mdt.Good_Min__c</members>
+        <members>Health_Rule__mdt.Fair_Min__c</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -78,6 +98,10 @@
         <members>Recall_Alert__c</members>
         <members>Recall_Rule__mdt</members>
         <members>Aicx_Rule__mdt</members>
+        <members>Recall_Campaign__c</members>
+        <members>Recall_Vehicle__c</members>
+        <members>Finance_Contract__c</members>
+        <members>Health_Rule__mdt</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -94,6 +118,8 @@
         <members>Recall_Alert__c</members>
         <members>Aurora_AI_Care_Demo</members>
         <members>Aurora_Owners_Vehicles</members>
+        <members>Recall_Campaign__c</members>
+        <members>Finance_Contract__c</members>
         <name>CustomTab</name>
     </types>
     <types>
@@ -108,6 +134,9 @@
         <members>Service_Visit__c-정비 이력 레이아웃</members>
         <members>Vehicle_Party__c-차량-사람 관계 레이아웃</members>
         <members>Vehicle_Warranty__c-차량 보증 레이아웃</members>
+        <members>Recall_Campaign__c-리콜 캠페인 레이아웃</members>
+        <members>Recall_Vehicle__c-리콜 대상 차량 레이아웃</members>
+        <members>Finance_Contract__c-금융·리스 계약 레이아웃</members>
         <name>Layout</name>
     </types>
     <types>
@@ -117,10 +146,13 @@
         <members>Vehicle_Before_Save</members>
         <members>Aurora_Copilot_Escalation</members>
         <members>Aurora_SLA_Reminder</members>
+        <members>Aurora_Finance_Maturity_Repurchase</members>
+        <members>Aurora_Warranty_Expiry_Repurchase</members>
         <name>Flow</name>
     </types>
     <types>
         <members>Compensation__c.Approve_Or_Reject</members>
+        <members>Recall_Campaign__c.Generate_Targets</members>
         <name>QuickAction</name>
     </types>
     <types>
@@ -133,6 +165,7 @@
         <members>Aurora_Wiki_Record_Page</members>
         <members>Aurora_Service_Visit_Record_Page</members>
         <members>Aurora_Warranty_Record_Page</members>
+        <members>Aurora_Repurchase_Record_Page</members>
         <name>FlexiPage</name>
     </types>
     <types>
@@ -142,6 +175,8 @@
         <members>Contact.Aurora_Owners</members>
         <members>Case.Aurora_AI_Care_Results</members>
         <members>Service_Visit__c.Defect_Repairs</members>
+        <members>Opportunity.Aurora_Repurchase</members>
+        <members>Contact.Aurora_Health_Watch</members>
         <name>ListView</name>
     </types>
     <types>
@@ -173,6 +208,7 @@
         <members>Case.Aurora_Close_Requires_First_Response</members>
         <members>Case.Aurora_Progress_Requires_Owner_Vehicle</members>
         <members>Case.Aurora_Safety_Category_Locked</members>
+        <members>Case.Aurora_CSAT_Range</members>
         <name>ValidationRule</name>
     </types>
     <types>
@@ -217,6 +253,17 @@
         <members>AuroraSystemKeywords</members>
         <members>AuroraApprovalRule</members>
         <members>AuroraApprovalRuleTest</members>
+        <members>AuroraNetworkController</members>
+        <members>AuroraNetworkTest</members>
+        <members>RecallCampaignService</members>
+        <members>RecallCampaignTest</members>
+        <members>FinanceContractService</members>
+        <members>FinanceContractTest</members>
+        <members>RepurchaseService</members>
+        <members>RepurchaseServiceTest</members>
+        <members>CustomerHealthService</members>
+        <members>CustomerHealthServiceTest</members>
+        <members>RetentionScreensTest</members>
         <name>ApexClass</name>
     </types>
     <types>
@@ -228,6 +275,8 @@
         <members>AuroraRecallTrigger</members>
         <members>AuroraCaseAlertTrigger</members>
         <members>AuroraCompensationAlertTrigger</members>
+        <members>RecallVehicleTrigger</members>
+        <members>FinanceContractTrigger</members>
         <name>ApexTrigger</name>
     </types>
     <types>
@@ -244,6 +293,8 @@
         <members>auroraOwnerVehicleBoard</members>
         <members>auroraVisitHistory</members>
         <members>auroraWarrantySiblings</members>
+        <members>auroraCenterLoad</members>
+        <members>auroraRecallTargets</members>
         <name>LightningComponentBundle</name>
     </types>
     <types>

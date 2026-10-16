@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_Key__c</fullName>
+    <description>샘플 적재용 외부 ID(예: RC-K1). 대상 차량 키의 앞부분</description>
+    <label>캠페인 키</label>
+    <caseSensitive>false</caseSensitive>
+    <externalId>true</externalId>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

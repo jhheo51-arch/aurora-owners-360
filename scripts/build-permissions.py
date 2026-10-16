@@ -22,6 +22,8 @@ FIELDS = [
     ("Vehicle__c", "Lemon_Law_Basis__c", False),
     ("Vehicle__c", "Repeat_Defect__c", False),
     ("Vehicle__c", "Repeat_Defect_System__c", False),
+    ("Vehicle__c", "Preferred_Center__c", True),
+    ("Vehicle__c", "Selling_Dealer__c", True),
     ("Vehicle_Model__c", "Model_Code__c", True),
     ("Vehicle_Model__c", "Model_Line__c", True),
     ("Vehicle_Model__c", "Powertrain__c", True),
@@ -84,17 +86,21 @@ FIELDS = [
 ]
 
 # v3부터는 오브젝트 폴더의 필드를 자동으로 읽는다: 수식·롤업은 읽기 전용, Master-Detail은 FLS 대상 아님
-AUTO_OBJECTS = ["Vehicle_Warranty__c", "Vehicle_Party__c", "Part__c", "Failure_Mode__c", "Case_Part__c", "Service_Visit__c", "Recall_Alert__c"]
+AUTO_OBJECTS = ["Vehicle_Warranty__c", "Vehicle_Party__c", "Part__c", "Failure_Mode__c", "Case_Part__c", "Service_Visit__c", "Recall_Alert__c", "Recall_Campaign__c", "Recall_Vehicle__c", "Finance_Contract__c"]
 EXTRA_FIELDS = [("Case", f) for f in ["Failure_Mode__c", "Proposed_Failure_Mode__c", "Root_Cause__c",
                                       "Resolution__c", "Resolution_Method__c", "Self_Solvable__c", "Recall_Alert__c"]] + \
                [("Account", "Customer_Segment__c"), ("Account", "Aurora_Key__c"),
-                ("Contact", "Contact_Role__c"), ("Contact", "Aurora_Key__c")]
+                ("Contact", "Contact_Role__c"), ("Contact", "Aurora_Key__c"),
+                ("Account", "Region__c"), ("Account", "Daily_Capacity__c")] + \
+               [("Opportunity", f) for f in ["Aurora_Type__c", "Trigger_Reason__c", "Customer_Contact__c", "Vehicle__c",
+                                             "Finance_Contract__c", "Recommended_Model__c"]]
 
 
 APEX_CLASSES = ["CustomerTimelineController", "SimilarCaseService", "Aurora3dController", "AuroraCardController",
                 "AuroraSimilarCasesAction", "AuroraLemonCheckAction", "AuroraEscalationAction", "AuroraAgentSupport",
-                "AicxController", "AicxRoutingService", "AicxSelfHelpService", "AuroraOwnerBoardController", "AuroraRagService", "AuroraRagAnswerAction", "AuroraRecordFinder", "AuroraWorkQueryAction"]
-READONLY_EXTRA = [("Case", "Alert_Codes_Sent__c"), ("Compensation__c", "Alert_Codes_Sent__c"), ("Case", "Warranty_Coverage__c"), ("Case", "Applied_Warranty__c"), ("Contact", "VOC_Count_90d__c"), ("Contact", "Risk_Score__c"), ("Contact", "Risk_Level__c")]
+                "AicxController", "AicxRoutingService", "AicxSelfHelpService", "AuroraOwnerBoardController", "AuroraRagService", "AuroraRagAnswerAction", "AuroraRecordFinder", "AuroraWorkQueryAction", "AuroraNetworkController", "RecallCampaignService"]
+READONLY_EXTRA = [("Case", "Alert_Codes_Sent__c"), ("Compensation__c", "Alert_Codes_Sent__c"), ("Case", "Warranty_Coverage__c"), ("Case", "Applied_Warranty__c"), ("Contact", "VOC_Count_90d__c"), ("Contact", "Risk_Score__c"), ("Contact", "Risk_Level__c"),
+                  ("Contact", "Health_Score__c"), ("Contact", "Health_Grade__c"), ("Contact", "Health_Basis__c")]
 
 
 def class_access():
@@ -121,7 +127,7 @@ def scan_fields():
 FIELDS = FIELDS + scan_fields()
 
 NEW_TABS = ["Vehicle__c", "Compensation__c", "Care_Staff__c", "Vehicle_Model__c",
-            "Vehicle_Party__c", "Part__c", "Failure_Mode__c", "Case_Part__c", "Service_Visit__c", "Vehicle_Warranty__c", "Recall_Alert__c", "Aurora_AI_Care_Demo", "Aurora_Owners_Vehicles"]
+            "Vehicle_Party__c", "Part__c", "Failure_Mode__c", "Case_Part__c", "Service_Visit__c", "Vehicle_Warranty__c", "Recall_Alert__c", "Aurora_AI_Care_Demo", "Aurora_Owners_Vehicles", "Recall_Campaign__c", "Finance_Contract__c"]
 APP = "Aurora_Owners_360"
 AGENT = "Aurora_Care_Copilot"
 
@@ -162,6 +168,9 @@ def permission_set():
         object_perm("Contact", True, False, False, False, False, False),
         object_perm("Vehicle__c", True, True, True, True, False, False),
         object_perm("Vehicle_Model__c", True, False, False, False, False, False),
+        # v5 재구매 상담(표준 Opportunity). Opportunity 읽기는 Account 읽기에 의존
+        object_perm("Account", True, False, False, False, False, False),
+        object_perm("Opportunity", True, True, True, False, False, False),
     ] + [object_perm(o, True, True, True, True, False, False) for o in AUTO_OBJECTS]
     tabs = "\n".join(
         "    <tabSettings>\n"

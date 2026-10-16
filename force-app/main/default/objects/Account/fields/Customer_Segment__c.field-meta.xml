@@ -23,6 +23,16 @@
                 <default>false</default>
                 <label>공급사</label>
             </value>
+            <value>
+                <fullName>서비스센터</fullName>
+                <default>false</default>
+                <label>서비스센터</label>
+            </value>
+            <value>
+                <fullName>딜러</fullName>
+                <default>false</default>
+                <label>딜러</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

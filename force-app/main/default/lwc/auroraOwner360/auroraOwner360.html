@@ -8,6 +8,7 @@
                     <p class="muted">{contactLine}</p>
                 </div>
                 <div><p class="k">고객 위험 등급</p><p class={riskClass}>{riskText}</p></div>
+                <div><p class="k">고객 건강 점수</p><p class={healthClass} title={o.healthBasis}>{healthText}</p></div>
                 <div><p class="k">최근 90일 VOC</p><p class="big">{o.voc90}건</p></div>
                 <div><p class="k">진행 중 VOC · 담당</p><p class="v">{o.openVoc}건</p><p class="muted">{o.handlers}</p></div>
                 <div><p class="k">보유 차량</p><p class="big">{o.vehicleCount}대</p></div>
@@ -17,6 +18,9 @@
                     <span key={b.key} class={b.cls}>{b.label}</span>
                 </template>
             </div>
+            <template lwc:if={o.healthBasis}>
+                <p class="muted row">건강 점수 근거: {o.healthBasis}</p>
+            </template>
         </section>
     </template>
 </template>

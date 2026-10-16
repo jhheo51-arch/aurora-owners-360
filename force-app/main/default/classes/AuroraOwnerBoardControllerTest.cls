@@ -66,4 +66,29 @@ private class AuroraOwnerBoardControllerTest {
         System.assert(!names(AuroraOwnerBoardController.search('', new List<String>{ 'risk' })).contains('평범차주'), '위험 높음만');
         System.assertEquals(0, AuroraOwnerBoardController.search('평범', new List<String>{ 'lemon' }).size(), '검색 + 필터 함께');
     }
+
+    @IsTest
+    static void retentionSignalsAndFilters() {
+        Vehicle__c v = [SELECT Id, Owner_Contact__c FROM Vehicle__c WHERE VIN__c = 'TESTOWNERB00001'];
+        insert new Finance_Contract__c(Vehicle__c = v.Id, Contract_Type__c = '리스', Status__c = '진행', End_Date__c = Date.today().addDays(60));
+        Recall_Campaign__c rc = new Recall_Campaign__c(Campaign_Key__c = 'T-OB-RC', Title__c = '테스트 캠페인', Model_Line__c = '노스라이트', Status__c = '진행');
+        insert rc;
+        insert new Recall_Vehicle__c(Campaign__c = rc.Id, Vehicle__c = v.Id, Status__c = '미통지');
+        insert new Opportunity(Name = '재구매', StageName = 'Prospecting', CloseDate = Date.today().addDays(60),
+            Aurora_Type__c = RepurchaseService.AURORA_TYPE, Vehicle__c = v.Id);
+        update new Contact(Id = v.Owner_Contact__c, Health_Grade__c = CustomerHealthService.GRADE_WATCH);
+
+        Test.startTest();
+        AuroraOwnerBoardController.OwnerRow r = AuroraOwnerBoardController.search('위험차주', null)[0];
+        Test.stopTest();
+        AuroraOwnerBoardController.VehicleCard card = r.vehicles[0];
+        System.assertEquals(60, card.maturityDays);
+        System.assert(card.recallOpen.endsWith('미통지'), card.recallOpen);
+        System.assertEquals('Prospecting', card.repurchaseStage);
+        System.assert(r.recallFlag && r.maturingFlag);
+        System.assertEquals(CustomerHealthService.GRADE_WATCH, r.healthGrade);
+        for (String f : new List<String>{ 'health', 'recall', 'maturing' }) {
+            System.assertEquals(new Set<String>{ '위험차주' }, names(AuroraOwnerBoardController.search('', new List<String>{ f })), f);
+        }
+    }
 }

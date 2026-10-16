@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <label>이행 상태</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>미통지</fullName>
+                <default>true</default>
+                <label>미통지</label>
+            </value>
+            <value>
+                <fullName>통지</fullName>
+                <default>false</default>
+                <label>통지</label>
+            </value>
+            <value>
+                <fullName>입고 예약</fullName>
+                <default>false</default>
+                <label>입고 예약</label>
+            </value>
+            <value>
+                <fullName>조치 완료</fullName>
+                <default>false</default>
+                <label>조치 완료</label>
+            </value>
+            <value>
+                <fullName>제외</fullName>
+                <default>false</default>
+                <label>제외</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

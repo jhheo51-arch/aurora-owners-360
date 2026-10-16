@@ -50,7 +50,13 @@ write(f"objects/{OBJ}/{OBJ}.object-meta.xml", f"""<CustomObject {NS}>
         <startingNumber>1</startingNumber>
     </nameField>
     <pluralLabel>리콜 경보</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Model_Line__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>System__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>VOC_Count__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Assigned_Staff__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
@@ -149,6 +155,14 @@ write(f"layouts/{OBJ}-리콜 경보 레이아웃.layout-meta.xml", f"""<Layout {
         <fields>VOC_Status__c</fields>
         <fields>CASES.CREATED_DATE</fields>
         <relatedList>Case.Recall_Alert__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Title__c</fields>
+        <fields>Status__c</fields>
+        <fields>Target_Count__c</fields>
+        <fields>Completion_Rate__c</fields>
+        <relatedList>Recall_Campaign__c.Source_Alert__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

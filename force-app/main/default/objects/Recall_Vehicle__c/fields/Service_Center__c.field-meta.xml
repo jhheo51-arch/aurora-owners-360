@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Service_Center__c</fullName>
+    <description>기본값은 차량의 담당 서비스센터</description>
+    <label>조치 서비스센터</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>고객 구분(오로라)이 '서비스센터'인 거래처만 고를 수 있습니다.</errorMessage>
+        <filterItems>
+            <field>Account.Customer_Segment__c</field>
+            <operation>equals</operation>
+            <value>서비스센터</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>리콜 조치 차량</relationshipLabel>
+    <relationshipName>Recall_Center_Targets</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

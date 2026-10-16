@@ -46,6 +46,11 @@ public with sharing class AuroraCardController {
         @AuraEnabled public String handlers;
         @AuraEnabled public String tone;
         @AuraEnabled public List<Badge> badges = new List<Badge>();
+        // v5 S-6 고객 건강 점수
+        @AuraEnabled public Decimal healthScore;
+        @AuraEnabled public String healthGrade;
+        @AuraEnabled public String healthBasis;
+        @AuraEnabled public String healthTone;
     }
 
     public class Gauge {
@@ -202,6 +207,12 @@ public with sharing class AuroraCardController {
             if (v.Warranty_End_Date__c != null && v.Warranty_End_Date__c < Date.today()) {
                 out.add(new Badge('🛡 일반 보증 만료', 'done'));
             }
+            // v5: 진행 중 리콜 캠페인 미조치
+            for (Recall_Vehicle__c rv : [SELECT Status__c, Campaign__r.Name, Campaign__r.System__c FROM Recall_Vehicle__c
+                                         WHERE Vehicle__c = :recordId AND Status__c NOT IN ('조치 완료', '제외')
+                                         AND Campaign__r.Status__c != '완료' ORDER BY Campaign__r.Name]) {
+                out.add(new Badge('🔧 리콜 미조치 · ' + rv.Campaign__r.Name + ' ' + rv.Status__c, 'danger'));
+            }
             if (out.isEmpty()) {
                 out.add(new Badge('✓ 정상', 'ok'));
             }
@@ -212,7 +223,8 @@ public with sharing class AuroraCardController {
     // ===== 차주 360 =====
     @AuraEnabled(cacheable=true)
     public static Owner360 getOwner360(Id contactId) {
-        Contact c = [SELECT Name, Phone, Email, Risk_Level__c, Risk_Score__c, VOC_Count_90d__c FROM Contact WHERE Id = :contactId];
+        Contact c = [SELECT Name, Phone, Email, Risk_Level__c, Risk_Score__c, VOC_Count_90d__c,
+                            Health_Score__c, Health_Grade__c, Health_Basis__c FROM Contact WHERE Id = :contactId];
         Owner360 o = new Owner360();
         o.name = c.Name;
         o.phone = c.Phone;
@@ -246,6 +258,27 @@ public with sharing class AuroraCardController {
         }
         if (risky) {
             o.badges.add(new Badge('↻ 반복 결함·레몬법 차량 보유', 'warn'));
+        }
+        // v5 S-6: 건강 점수와 리텐션 신호(리콜 미조치·금융 만기 90일·재구매 상담)
+        o.healthScore = c.Health_Score__c;
+        o.healthGrade = c.Health_Grade__c;
+        o.healthBasis = c.Health_Basis__c;
+        o.healthTone = c.Health_Grade__c == CustomerHealthService.GRADE_GOOD ? 'ok'
+            : (c.Health_Grade__c == CustomerHealthService.GRADE_FAIR ? 'warn' : (c.Health_Grade__c == null ? 'done' : 'danger'));
+        if ([SELECT COUNT() FROM Recall_Vehicle__c WHERE Vehicle__r.Owner_Contact__c = :contactId
+             AND Status__c NOT IN ('조치 완료', '제외') AND Campaign__r.Status__c != '완료'] > 0) {
+            o.badges.add(new Badge('🔧 리콜 미조치 차량 보유', 'danger'));
+        }
+        Date today = Date.today();
+        Date until = today.addDays(RepurchaseService.WINDOW_DAYS);
+        for (Finance_Contract__c f : [SELECT End_Date__c FROM Finance_Contract__c WHERE Vehicle__r.Owner_Contact__c = :contactId
+                                      AND Status__c = '진행' AND End_Date__c >= :today AND End_Date__c <= :until
+                                      ORDER BY End_Date__c LIMIT 1]) {
+            o.badges.add(new Badge('💳 금융 만기 D-' + today.daysBetween(f.End_Date__c), 'warn'));
+        }
+        for (Opportunity op : [SELECT StageName FROM Opportunity WHERE Customer_Contact__c = :contactId
+                               AND Aurora_Type__c = :RepurchaseService.AURORA_TYPE AND IsClosed = false LIMIT 1]) {
+            o.badges.add(new Badge('🤝 재구매 상담 ' + op.StageName, 'ok'));
         }
         return o;
     }

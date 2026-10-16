@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="서비스센터 혼잡도" icon-name="custom:custom31">
+        <div class="slds-p-horizontal_medium">
+            <template lwc:if={hasRows}>
+                <template for:each={rows} for:item="r">
+                    <div key={r.key} class={r.rowClass}>
+                        <div class="lbl">
+                            <span>
+                                <a href="#" data-id={r.id} onclick={open}><b>{r.name}</b></a>
+                                <template lwc:if={r.preferred}><span class="mine-tag">담당</span></template>
+                            </span>
+                            <span class={r.badge}>{r.state}</span>
+                        </div>
+                        <div class="track" role="img" aria-label={r.detail}><div class="fill" style={r.fill}></div></div>
+                        <p class="muted">{r.detail}</p>
+                    </div>
+                </template>
+                <p class="muted note">혼잡도 = 입고 후 완료 전 정비 ÷ 하루 입고 용량</p>
+            </template>
+            <template lwc:elseif={error}><p class="muted">{error}</p></template>
+            <template lwc:else><p class="muted">등록된 서비스센터가 없습니다.</p></template>
+        </div>
+    </lightning-card>
+</template>

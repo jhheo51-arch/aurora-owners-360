@@ -68,6 +68,14 @@
         <fields>CASES.CREATED_DATE</fields>
         <relatedList>Case.Recall_Alert__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Title__c</fields>
+        <fields>Status__c</fields>
+        <fields>Target_Count__c</fields>
+        <fields>Completion_Rate__c</fields>
+        <relatedList>Recall_Campaign__c.Source_Alert__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

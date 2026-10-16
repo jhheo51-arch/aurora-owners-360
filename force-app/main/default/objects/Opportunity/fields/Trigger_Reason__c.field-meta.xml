@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Trigger_Reason__c</fullName>
+    <label>상담 계기</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>금융 만기</fullName>
+                <default>false</default>
+                <label>금융 만기</label>
+            </value>
+            <value>
+                <fullName>보증 만료</fullName>
+                <default>false</default>
+                <label>보증 만료</label>
+            </value>
+            <value>
+                <fullName>고객 요청</fullName>
+                <default>false</default>
+                <label>고객 요청</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

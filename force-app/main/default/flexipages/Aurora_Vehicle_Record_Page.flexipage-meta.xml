@@ -267,8 +267,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Service_Center__c</fieldItem>
-                <identifier>RecordService_Center_cField</identifier>
+                <fieldItem>Record.Preferred_Center__c</fieldItem>
+                <identifier>RecordPreferred_Center_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-veh_detail-s2-c1</name>
@@ -293,6 +293,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Battery_Warranty_End_Date__c</fieldItem>
                 <identifier>RecordBattery_Warranty_End_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Selling_Dealer__c</fieldItem>
+                <identifier>RecordSelling_Dealer_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-veh_detail-s2-c2</name>
@@ -645,6 +655,12 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>auroraCenterLoad</componentName>
+                <identifier>c_auroraCenterLoad</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentName>auroraTimeline</componentName>

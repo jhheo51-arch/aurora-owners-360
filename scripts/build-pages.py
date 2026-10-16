@@ -25,6 +25,8 @@ CASE_TABS = [
         ("③ 해결 정보 (고장 위키)",
          [("Failure_Mode__c", False), ("Proposed_Failure_Mode__c", False), ("Root_Cause__c", False)],
          [("Resolution_Method__c", False), ("Self_Solvable__c", False), ("Resolution__c", False)], None),
+        ("④ 종결 만족도 (선택 — 종결 통화에서 받은 1~5점, 고객 건강 점수에 반영)",
+         [("CSAT__c", False)], None, None),
         ("🔒 자동 계산 (Flow·Apex — 직접 고치지 않음)",
          [("Response_Due_At__c", True), ("SLA_Met__c", True)],
          [("VOC_Status_Display__c", True)], None),
@@ -67,8 +69,8 @@ VEHICLE_DETAIL_SECTIONS = [
      [("Name", True), ("Display_Name__c", False), ("Vehicle_Model__c", False), ("Model__c", False), ("Model_Year__c", False)],
      [("Owner_Contact__c", False), ("Plate_Number__c", False), ("VIN__c", False), ("Powertrain__c", False)], None),
     ("운행·보증",
-     [("Mileage__c", False), ("Delivery_Date__c", False), ("Service_Center__c", False)],
-     [("Warranty_End_Date__c", False), ("Battery_Warranty_End_Date__c", False)], None),
+     [("Mileage__c", False), ("Delivery_Date__c", False), ("Preferred_Center__c", False)],
+     [("Warranty_End_Date__c", False), ("Battery_Warranty_End_Date__c", False), ("Selling_Dealer__c", False)], None),
     ("시스템 정보", [("OwnerId", False), ("CreatedById", True)], [("LastModifiedById", True)], None),
 ]
 
@@ -304,7 +306,8 @@ def vehicle_page():
         ("detail", "상세", detail),
         ("related", "관련", [related_container()]),
     ])
-    sidebar = [component("auroraTimeline", "c_auroraTimeline", [])]
+    # v5: 서비스센터 혼잡도(담당 센터 먼저) → 통합 타임라인
+    sidebar = [component("auroraCenterLoad", "c_auroraCenterLoad", []), component("auroraTimeline", "c_auroraTimeline", [])]
     badges = component("auroraStatusBadges", "c_auroraStatusBadges", [])
     return page("오로라 차량 레코드 페이지", "Vehicle__c", [highlights(), badges], [tabs], sidebar, regions + tab_regions)
 

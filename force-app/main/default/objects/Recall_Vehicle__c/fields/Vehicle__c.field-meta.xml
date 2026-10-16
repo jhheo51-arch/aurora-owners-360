@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Vehicle__c</fullName>
+    <label>차량</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Vehicle__c</referenceTo>
+    <relationshipLabel>리콜 대상</relationshipLabel>
+    <relationshipName>Recall_Targets</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

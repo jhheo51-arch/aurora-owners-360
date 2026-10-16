@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Contract_Type__c</fullName>
+    <label>계약 유형</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>할부</fullName>
+                <default>false</default>
+                <label>할부</label>
+            </value>
+            <value>
+                <fullName>리스</fullName>
+                <default>false</default>
+                <label>리스</label>
+            </value>
+            <value>
+                <fullName>장기렌트</fullName>
+                <default>false</default>
+                <label>장기렌트</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

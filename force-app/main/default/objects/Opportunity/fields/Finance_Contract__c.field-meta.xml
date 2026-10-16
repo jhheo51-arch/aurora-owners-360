@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finance_Contract__c</fullName>
+    <label>금융·리스 계약</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Finance_Contract__c</referenceTo>
+    <relationshipLabel>재구매 상담</relationshipLabel>
+    <relationshipName>Repurchase_Opportunities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

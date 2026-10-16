@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer_Contact__c</fullName>
+    <description>차주 대부분은 Account가 없어 Contact로 직접 연결</description>
+    <label>고객(차주)</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>재구매 상담</relationshipLabel>
+    <relationshipName>Aurora_Repurchase_Opportunities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

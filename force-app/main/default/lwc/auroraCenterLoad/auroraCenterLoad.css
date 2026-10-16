@@ -1,0 +1,13 @@
+.center { margin-bottom: 12px; }
+.center.mine { padding: 8px; border: 1px solid #c9d7ec; border-radius: 8px; background: #f5f8fd; }
+.lbl { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
+.mine-tag { margin-left: 6px; padding: 1px 7px; border-radius: 8px; font-size: 11px; font-weight: 700; background: #0b3d91; color: #fff; }
+.track { height: 8px; border-radius: 6px; background: #eef0f3; overflow: hidden; }
+.fill { height: 100%; border-radius: 6px; }
+.muted { font-size: 12px; color: #5c6370; margin-top: 2px; }
+.note { margin-bottom: 8px; }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 12px; font-weight: 600; line-height: 1.6; white-space: nowrap; }
+.badge.danger { background: #fdecea; color: #b3261e; }
+.badge.warn { background: #fff4e5; color: #8a4b00; }
+.badge.ok { background: #eaf6ee; color: #1e6b38; }
+.badge.done { background: #f1f2f4; color: #4a4f57; }

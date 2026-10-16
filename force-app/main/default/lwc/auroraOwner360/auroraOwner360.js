@@ -28,6 +28,16 @@ export default class AuroraOwner360 extends LightningElement {
         return 'v ' + (this.o ? this.o.tone : '');
     }
 
+    // v5 S-6: 고객 건강 점수(높을수록 남을 가능성 큼)
+    get healthText() {
+        if (this.o.healthScore == null) return '-';
+        return (this.o.healthTone === 'ok' ? '♥ ' : '♡ ') + this.o.healthScore + '점 · ' + this.o.healthGrade;
+    }
+
+    get healthClass() {
+        return 'v ' + (this.o ? this.o.healthTone : '');
+    }
+
     get badges() {
         return this.o.badges.map((b, i) => ({ key: i, label: b.label, cls: 'badge ' + b.tone }));
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Health_Score__c</fullName>
+    <description>0~100, 높을수록 남을 가능성 큼(v5 Q76). 100에서 위험 점수·낮은 CSAT·리콜 미조치·레몬법·진행 중 VOC 감점. 위험 점수와 함께 재계산</description>
+    <label>고객 건강 점수</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

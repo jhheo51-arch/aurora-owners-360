@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>CSAT__c</fullName>
-    <description>AI 자가 해결 후 차주가 준 별점 1~5</description>
+    <description>차주 만족도 1~5: AI 자가 해결 후 차주가 준 별점, 또는 VOC 종결 시 상담원이 통화로 받은 점수(v5). 고객 건강 점수에 반영</description>
     <label>만족도(CSAT)</label>
     <precision>1</precision>
     <required>false</required>

@@ -389,6 +389,34 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CSAT__c</fieldItem>
+                <identifier>RecordCSAT_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-case_process-s5-c1</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-case_process-s5-c1</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column_case_process_s5_c1</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-case_process-s5-cols</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Response_Due_At__c</fieldItem>
@@ -405,7 +433,7 @@
                 <identifier>RecordSLA_Met_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-case_process-s5-c1</name>
+        <name>Facet-case_process-s6-c1</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -419,7 +447,7 @@
                 <identifier>RecordVOC_Status_Display_cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-case_process-s5-c2</name>
+        <name>Facet-case_process-s6-c2</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -427,23 +455,23 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-case_process-s5-c1</value>
+                    <value>Facet-case_process-s6-c1</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column_case_process_s5_c1</identifier>
+                <identifier>flexipage_column_case_process_s6_c1</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-case_process-s5-c2</value>
+                    <value>Facet-case_process-s6-c2</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:column</componentName>
-                <identifier>flexipage_column_case_process_s5_c2</identifier>
+                <identifier>flexipage_column_case_process_s6_c2</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-case_process-s5-cols</name>
+        <name>Facet-case_process-s6-cols</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -809,10 +837,28 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>🔒 자동 계산 (Flow·Apex — 직접 고치지 않음)</value>
+                    <value>④ 종결 만족도 (선택 — 종결 통화에서 받은 1~5점, 고객 건강 점수에 반영)</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection_case_process_5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
+                    <value>Facet-case_process-s6-cols</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>🔒 자동 계산 (Flow·Apex — 직접 고치지 않음)</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection_case_process_6</identifier>
             </componentInstance>
         </itemInstances>
         <name>processTabContent</name>

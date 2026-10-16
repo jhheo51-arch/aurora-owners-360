@@ -82,7 +82,45 @@ public with sharing class CustomerTimelineController {
             t.events.add(new TimelineEvent('소유권', 'standard:contact', p.Start_Date__c, p.Role__c + ' · ' + who,
                 p.Account__r == null ? '' : '법인·가구: ' + p.Account__r.Name, p.Vehicle__r.Name, p.Id));
         }
+        addRetention(t, vehicleIds);
         t.events.sort();
         return t;
+    }
+
+    /** v5 S-6: 리콜 캠페인 조치, 금융·리스 계약(시작·만기), 재구매 상담 + 상단 배지(리콜 미조치·금융 만기 D-n) */
+    static void addRetention(Timeline t, Set<Id> vehicleIds) {
+        Date today = Date.today();
+        for (Recall_Vehicle__c r : [SELECT Id, Status__c, Notified_Date__c, Reserved_Date__c, Completed_Date__c, Vehicle__r.Name,
+                                           Campaign__r.Name, Campaign__r.Title__c, Campaign__r.Start_Date__c, Campaign__r.Status__c
+                                    FROM Recall_Vehicle__c WHERE Vehicle__c IN :vehicleIds]) {
+            Date d = r.Completed_Date__c != null ? r.Completed_Date__c
+                : (r.Reserved_Date__c != null ? r.Reserved_Date__c : (r.Notified_Date__c != null ? r.Notified_Date__c : r.Campaign__r.Start_Date__c));
+            t.events.add(new TimelineEvent('리콜', 'standard:announcement', d, '리콜 ' + r.Campaign__r.Name + ' · ' + r.Campaign__r.Title__c,
+                '대상 차량 ' + r.Status__c, r.Vehicle__r.Name, r.Id));
+            if (r.Status__c != '조치 완료' && r.Status__c != '제외' && r.Campaign__r.Status__c != '완료') {
+                t.badges.add(r.Vehicle__r.Name + ' 리콜 미조치(' + r.Campaign__r.Name + ' ' + r.Status__c + ')');
+            }
+        }
+        for (Finance_Contract__c f : [SELECT Id, Name, Contract_Type__c, Status__c, Start_Date__c, End_Date__c, Monthly_Payment__c, Vehicle__r.Name
+                                      FROM Finance_Contract__c WHERE Vehicle__c IN :vehicleIds]) {
+            String pay = f.Monthly_Payment__c == null ? '' : '월 ' + f.Monthly_Payment__c.format() + '원';
+            if (f.Start_Date__c != null) {
+                t.events.add(new TimelineEvent('금융', 'standard:contract', f.Start_Date__c, f.Contract_Type__c + ' 계약 ' + f.Name + ' 시작',
+                    pay, f.Vehicle__r.Name, f.Id));
+            }
+            if (f.End_Date__c != null) {
+                Boolean ahead = f.Status__c == '진행' && f.End_Date__c >= today;
+                t.events.add(new TimelineEvent('금융', 'standard:contract', f.End_Date__c,
+                    f.Contract_Type__c + ' 계약 ' + f.Name + (ahead ? ' 만기 예정' : ' 만기'), '계약 상태 ' + f.Status__c, f.Vehicle__r.Name, f.Id));
+                if (ahead && today.daysBetween(f.End_Date__c) <= RepurchaseService.WINDOW_DAYS) {
+                    t.badges.add(f.Vehicle__r.Name + ' 금융 만기 D-' + today.daysBetween(f.End_Date__c));
+                }
+            }
+        }
+        for (Opportunity o : [SELECT Id, Name, StageName, Trigger_Reason__c, CreatedDate, Vehicle__r.Name FROM Opportunity
+                              WHERE Vehicle__c IN :vehicleIds AND Aurora_Type__c = :RepurchaseService.AURORA_TYPE]) {
+            t.events.add(new TimelineEvent('재구매 상담', 'standard:opportunity', o.CreatedDate.date(), '재구매 상담 · ' + o.Trigger_Reason__c,
+                '단계 ' + o.StageName, o.Vehicle__r.Name, o.Id));
+        }
     }
 }
