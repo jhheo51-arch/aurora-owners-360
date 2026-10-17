@@ -286,6 +286,16 @@ sf org assign permset -n Aurora_Owners_360_User -o aurora
 
 그다음 앱 실행기에서 **오로라 오너스 360** 앱을 엽니다. Agentforce 패널은 Agent 선택기에서 "VOC Care Assistant"를 고릅니다.
 
+### 다른 PC에서 이어서 작업하기
+이미 만든 org에서 개발을 이어 갈 때는 저장소를 받고 같은 org에 로그인하면 됩니다. org에 배포된 내용은 PC와 상관없이 그대로입니다.
+```bash
+git clone https://github.com/jhheo51-arch/aurora-owners-360.git
+cd aurora-owners-360
+sf org login web --alias sesac
+sf config set target-org sesac
+```
+Claude Code로 작업할 때는 [CLAUDE.md](CLAUDE.md)가 작업 규칙과 주의할 점을 알려 줍니다.
+
 ---
 
 ## 7. 품질, 제약, 알려진 한계
