@@ -1,5 +1,13 @@
 # 오로라 오너스 360 (Aurora Owners 360)
 
+## 30초 사례 안내
+
+**문제.** 가상 전기차 고객센터의 상담원이 안전 관련 VOC를 접수했을 때 차주, 차량, 보증과 정비 기록을 따로 찾아야 하고, 담당자 이관이 누락될 수 있다고 가정했습니다.
+
+**제가 정한 기준.** 상담원이 VOC 한 건을 끝까지 처리하는 흐름을 먼저 만들고, 안전 결함은 저장 시 팀장에게 이관하도록 설계했습니다. 생성 후 2시간은 이 가상 업무의 **설정 기한**이며 실제 처리 시간이나 업계 기준이 아닙니다. AI는 요약과 답변 초안을 맡고, 이관과 승인은 Flow와 Apex 규칙으로 처리하도록 범위를 나눴습니다.
+
+**구현과 확인.** Salesforce Developer Edition에 차주, 차량, 보증, 정비와 VOC 관계를 구현했습니다. [화면](docs/screenshots/v4.5/), [설계와 수용 테스트](docs/PRD.md), [Flow 및 Apex 소스](force-app/main/default/)에서 각각 결과를 확인할 수 있습니다. 테스트 통과는 개발 환경의 기능 확인이며, 실제 상담 속도나 고객 만족 개선을 측정한 결과는 아닙니다.
+
 > **English summary**
 > - A Salesforce CRM for a fictional EV maker's customer care center: it started as a car-owner complaint (VOC) app and grew into a customer-lifecycle CRM (owner · vehicle · warranty · service · compensation).
 > - Built only with a free **Developer Edition**: custom objects, Flow, Apex, LWC (incl. a three.js 3D parts view), Agentforce agent and Prompt Templates (Claude Sonnet 4.6).
@@ -22,11 +30,11 @@
 
 **오로라모터스**는 가상의 전기차 중심 완성차 회사입니다. 전기 세단 E5, 전기 SUV 노스라이트, 소형 EV 시티로, 하이브리드 GT를 팝니다. 이 회사 **고객케어센터 상담팀**이 차주의 불만을 처리하는 상황을 모델로 했습니다.
 
-| 숫자 | 의미 |
-|---|---|
-| **51점** | 미국 J.D. Power 2025 조사에서 대중 전기차 서비스 만족도가 내연기관차보다 51점 낮음. 기술자·정비망이 부족하니 상담 창구가 차량 정보와 기술 지식을 대신 채워야 함 |
-| **8년** | 일반 보증 3년과 별도인 배터리 보증. 충전·커넥티드카·배터리 안전처럼 차량 정보를 모르면 답할 수 없는 문의가 많음 |
-| **2시간** | 브레이크·배터리 같은 안전 결함이 팀장·품질팀까지 가야 하는 시간. 실제 리콜 지연·화재 사태의 공통 원인은 *현장 불만 신호가 위로 늦게 올라간 것* |
+| 숫자 | 성격 | 의미 |
+|---|---|---|
+| **51점** | 외부 조사 | [J.D. Power의 2025년 미국 서비스 만족도 조사](https://www.jdpower.com/business/press-releases/2025-us-customer-service-index-csi-study)에서 대중형 순수 전기차 소유자의 서비스 만족도가 대중형 내연기관차보다 51점 낮았습니다. 이 수치는 오로라의 성과가 아닙니다. |
+| **8년** | 가상 회사의 상품 조건 | 오로라 시연 데이터에서 일반 보증과 별도로 설정한 배터리 보증 기간입니다. 실제 제조사 정책이 아닙니다. |
+| **2시간** | 직접 정한 업무 기준 | 안전 결함 VOC의 생성 시각부터 이관 처리 기한으로 설정한 값입니다. 실제 사고 대응 시간이나 업계 표준이 아닙니다. |
 
 이 앱이 풀려는 문제는 세 가지입니다.
 1. **정보가 흩어져 있다**: 차주·차량·보증·정비·보상 이력을 여러 화면에서 찾아야 함 → **한 화면에 모은다**
